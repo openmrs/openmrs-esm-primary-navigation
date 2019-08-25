@@ -3,9 +3,23 @@ import openmrsRootDecorator from "@openmrs/react-root-decorator";
 import styles from "./root.styles.css";
 
 function Root() {
+  const [sidenavOpen, setSidenavOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const operation = sidenavOpen ? "add" : "remove";
+    document.body.classList[operation]("omrs-sidenav-expanded");
+
+    return () => {
+      document.body.classList.remove("omrs-sidenav-expanded");
+    };
+  }, [sidenavOpen]);
+
   return (
     <nav className={styles.topNav}>
-      <button className="omrs-unstyled omrs-padding-left-4 omrs-padding-right-4">
+      <button
+        className="omrs-unstyled omrs-padding-left-4 omrs-padding-right-4"
+        onClick={toggleSidenav}
+      >
         <svg className="omrs-icon">
           <use xlinkHref="#omrs-icon-menu" />
         </svg>
@@ -17,6 +31,10 @@ function Root() {
       <div>AB</div>
     </nav>
   );
+
+  function toggleSidenav() {
+    setSidenavOpen(!sidenavOpen);
+  }
 }
 
 export default openmrsRootDecorator({ featureName: "primary navigation" })(
