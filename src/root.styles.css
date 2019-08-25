@@ -1,0 +1,13 @@
+.topNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3.5rem;
+  width: 100vw;
+  padding: 0 0.5rem;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(24px);
+}
