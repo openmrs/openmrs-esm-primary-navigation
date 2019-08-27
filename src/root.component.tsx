@@ -20,15 +20,15 @@ function Root() {
         className="omrs-unstyled omrs-padding-left-4 omrs-padding-right-4"
         onClick={toggleSidenav}
       >
-        <svg className="omrs-icon">
+        <svg className={`omrs-icon ${styles.menuIcon}`}>
           <use xlinkHref="#omrs-icon-menu" />
         </svg>
       </button>
-      <div>
+      <div className="omrs-type-title-4">
         {/* We'll figure out whether to use document.title or not later */}
         Home
       </div>
-      <div>AB</div>
+      <div className={styles.avatar}>AB</div>
     </nav>
   );
 
