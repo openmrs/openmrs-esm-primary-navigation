@@ -14,11 +14,34 @@
 }
 
 .avatar {
-  border: 1px solid var(--omrs-color-bg-lowest-contrast);
-  border-radius: 50%;
-  padding: 0.5rem;
+  border: 1px solid var(--omrs-color-bg-lowest-contrast) !important;
+  border-radius: 50% !important;
+  padding: 0.5rem !important;
 }
 
 .menuIcon {
   fill: var(--omrs-color-interaction);
+}
+
+.userMenu {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  width: 100%;
+  right: 0;
+  z-index: 1;
+}
+
+.userMenuCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--omrs-color-ink-lowest-contrast);
+  border-radius: 0 0 0.25rem 0.25rem;
+  background: var(--omrs-color-bg-high-contrast);
+  border-top: none;
+}
+
+.hidden {
+  display: none;
 }
