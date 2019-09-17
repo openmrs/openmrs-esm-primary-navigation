@@ -2,21 +2,39 @@ import React from "react";
 import { render, cleanup, fireEvent, wait } from "@testing-library/react";
 import Root from "./root.component";
 import { of } from "rxjs";
-import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
+import { getCurrentUser } from "@openmrs/esm-api";
 import { act } from "react-dom/test-utils";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
+
+function renderWithRouter(
+  ui,
+  {
+    route = "/",
+    history = createMemoryHistory({ initialEntries: [route] }),
+    match = { params: {}, isExact: true, path: "", url: "" }
+  } = {}
+) {
+  return {
+    ...render(<Router history={history}>{ui}</Router>),
+    history,
+    match
+  };
+}
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
 window["getOpenmrsSpaBase"] = jest.fn().mockImplementation(() => "/");
 afterAll(cleanup);
 
 const mockUser = {
-  uuid: "uuid",
-  display: "admin",
-  person: { uuid: "uuid", display: "Test User" },
-  privileges: [],
-  roles: [{ uuid: "uuid", display: "System Developer" }]
+  authenticated: true,
+  user: {
+    uuid: "uuid",
+    display: "admin",
+    person: { uuid: "uuid", display: "Test User" },
+    privileges: [],
+    roles: [{ uuid: "uuid", display: "System Developer" }]
+  }
 };
 
 jest.mock("@openmrs/esm-api", () => ({
@@ -47,7 +65,7 @@ describe(`<Root />`, () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
     let wrapper;
     act(() => {
-      wrapper = render(<Root />);
+      wrapper = renderWithRouter(<Root />);
     });
     const userMenuBtn = wrapper.container.querySelector(".avatar");
     act(() => {
@@ -58,6 +76,8 @@ describe(`<Root />`, () => {
     act(() => {
       fireEvent.click(logoutBtn);
     });
-    // ToDo: figure out how to test Redirect with react-testing-library
+    await wait(() =>
+      expect(wrapper.history.location.pathname).toEqual("/login")
+    );
   });
 });

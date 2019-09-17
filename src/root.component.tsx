@@ -11,14 +11,20 @@ function Root(props: NavProps) {
   const [userNames, setUserNames] = React.useState(null);
   const [userInitials, setUserInitials] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
 
   React.useEffect(() => {
-    const sub = getCurrentUser().subscribe(({ person }) => {
-      const { display } = person;
-      setUserNames(display);
-      setUserInitials(
-        `${display.split(/\s/)[0][0]}${display.split(/\s/)[1][0]}`
-      );
+    const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(user => {
+      if (user.authenticated) {
+        setIsLoggedIn(true);
+        const { display } = user.user.person;
+        setUserNames(display);
+        setUserInitials(
+          `${display.split(/\s/)[0][0]}${display.split(/\s/)[1][0]}`
+        );
+      } else {
+        setIsLoggedIn(false);
+      }
     });
     return () => sub.unsubscribe();
   }, []);
@@ -32,20 +38,25 @@ function Root(props: NavProps) {
     };
   }, [sidenavOpen]);
 
-  function logout() {
-    return openmrsFetch("/ws/rest/v1/session", {
-      method: "DELETE"
-    }).then(() => setIsLoggedIn(false));
-  }
+  React.useEffect(() => {
+    const ac = new AbortController();
+    if (isLoggingOut) {
+      openmrsFetch("/ws/rest/v1/session", {
+        method: "DELETE"
+      }).then(() => setIsLoggedIn(false));
+    }
+    return () => ac.abort();
+  }, [isLoggingOut]);
 
-  function getOpenmrsSpaBase() {
-    // @ts-ignore
-    return window.getOpenmrsSpaBase();
-  }
   return (
     <BrowserRouter>
       <>
-        {!isLoggedIn && <Redirect to={`${getOpenmrsSpaBase()}login`} />}
+        {!isLoggedIn && (
+          <// @ts-ignore
+          Redirect
+            to={`${getOpenmrsSpaBase()}login`}
+          />
+        )}
         <nav className={styles.topNav}>
           <button
             className="omrs-unstyled omrs-padding-left-4 omrs-padding-right-4"
@@ -73,7 +84,10 @@ function Root(props: NavProps) {
             <div className="omrs-type-body-large omrs-margin-12">
               {userNames}
             </div>
-            <button onClick={logout} className="omrs-btn omrs-outlined-neutral">
+            <button
+              onClick={() => setIsLoggingOut(true)}
+              className="omrs-btn omrs-outlined-neutral"
+            >
               Logout
             </button>
           </div>
