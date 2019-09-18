@@ -52,9 +52,9 @@ function Root(props: NavProps) {
     <BrowserRouter>
       <>
         {!isLoggedIn && (
-          <// @ts-ignore
-          Redirect
-            to={`${getOpenmrsSpaBase()}login`}
+          <Redirect
+            // @ts-ignore
+            to={`${window.getOpenmrsSpaBase()}login`}
           />
         )}
         <nav className={styles.topNav}>

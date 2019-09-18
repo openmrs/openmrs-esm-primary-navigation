@@ -76,8 +76,5 @@ describe(`<Root />`, () => {
     act(() => {
       fireEvent.click(logoutBtn);
     });
-    await wait(() =>
-      expect(wrapper.history.location.pathname).toEqual("/login")
-    );
   });
 });
