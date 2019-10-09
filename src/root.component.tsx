@@ -48,6 +48,16 @@ function Root(props: NavProps) {
     return () => ac.abort();
   }, [isLoggingOut]);
 
+  React.useEffect(() => {
+    if (isUserMenuOpen) {
+      window.addEventListener("click", closePopup);
+      return () => window.removeEventListener("click", closePopup);
+    }
+    function closePopup() {
+      setIsUserMenuOpen(false);
+    }
+  });
+
   return (
     <BrowserRouter>
       <>
@@ -79,7 +89,12 @@ function Root(props: NavProps) {
             </button>
           </div>
         </nav>
-        <div className={toggle(styles.userMenu, styles.hidden, isUserMenuOpen)}>
+        <div
+          className={toggle(styles.userMenu, styles.hidden, isUserMenuOpen)}
+          role="button"
+          onClick={evt => evt.stopPropagation()}
+          tabIndex={-1}
+        >
           <div className={`${styles.userMenuCard} omrs-padding-16`}>
             <div className="omrs-type-body-large omrs-margin-12">
               {userNames}
