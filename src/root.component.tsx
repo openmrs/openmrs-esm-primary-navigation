@@ -4,6 +4,7 @@ import styles from "./root.styles.css";
 import { toggle } from "kremling";
 import { BrowserRouter, Redirect } from "react-router-dom";
 import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
+import { createErrorHandler } from "@openmrs/esm-error-handling";
 
 function Root(props: NavProps) {
   const [sidenavOpen, setSidenavOpen] = React.useState(false);
@@ -25,6 +26,7 @@ function Root(props: NavProps) {
       } else {
         setIsLoggedIn(false);
       }
+      createErrorHandler();
     });
     return () => sub.unsubscribe();
   }, []);
@@ -72,13 +74,14 @@ function Root(props: NavProps) {
             className="omrs-unstyled omrs-padding-left-4 omrs-padding-right-4"
             onClick={toggleSidenav}
           >
-            <svg className={`omrs-icon ${styles.menuIcon}`}>
+            <svg className="omrs-icon">
               <use xlinkHref="#omrs-icon-menu" />
             </svg>
           </button>
           <div className="omrs-type-title-4">
-            {/* We'll figure out whether to use document.title or not later */}
-            Home
+            <svg role="img" width="10rem">
+              <use xlinkHref="#omrs-logo-partial-mono"></use>
+            </svg>
           </div>
           <div>
             <button
