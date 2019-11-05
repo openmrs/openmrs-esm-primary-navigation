@@ -19,10 +19,6 @@
   padding: 0.5rem !important;
 }
 
-.menuIcon {
-  fill: var(--omrs-color-interaction);
-}
-
 .userMenu {
   display: flex;
   position: absolute;
