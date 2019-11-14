@@ -7,7 +7,8 @@ module.exports = {
   output: {
     filename: "openmrs-esm-primary-navigation.js",
     libraryTarget: "system",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
+    jsonpFunction: "webpackJsonp_openmrs_esm_primary_navigation"
   },
   module: {
     rules: [
