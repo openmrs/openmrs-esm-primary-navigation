@@ -1,9 +1,8 @@
 import React from "react";
 import { render, cleanup, fireEvent, wait } from "@testing-library/react";
-import Root from "./root.component";
+import { Root } from "./root.component";
 import { of } from "rxjs";
 import { getCurrentUser } from "@openmrs/esm-api";
-import { act } from "react-dom/test-utils";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
 
@@ -45,35 +44,18 @@ jest.mock("@openmrs/esm-api", () => ({
 }));
 
 describe(`<Root />`, () => {
-  it(`renders without dying`, () => {
-    let wrapper;
-    act(() => {
-      wrapper = render(<Root />);
-    });
-  });
-
   it(`renders avatar`, async () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
-    let wrapper;
-    act(() => {
-      wrapper = render(<Root />);
-    });
+    let wrapper = render(<Root />);
     await wait(() => expect(wrapper.getByText("TU")).not.toBeNull());
   });
 
   it(`logs out patient`, async () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
-    let wrapper;
-    act(() => {
-      wrapper = renderWithRouter(<Root />);
-    });
-    const userMenuBtn = wrapper.container.querySelector(".avatar");
-    act(() => {
-      fireEvent.click(userMenuBtn);
-    });
-    const logoutBtn = wrapper.getByText(/Logout/i);
-    expect(logoutBtn).not.toBeNull();
-    act(() => {
+    let wrapper = renderWithRouter(<Root />);
+    fireEvent.click(wrapper.getByText("TU"));
+    await wait(() => {
+      const logoutBtn = wrapper.getByText(/Logout/i);
       fireEvent.click(logoutBtn);
     });
   });

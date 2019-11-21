@@ -6,7 +6,7 @@ import { BrowserRouter, Redirect } from "react-router-dom";
 import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
 import { createErrorHandler } from "@openmrs/esm-error-handling";
 
-function Root(props: NavProps) {
+export function Root(props: NavProps) {
   const [sidenavOpen, setSidenavOpen] = React.useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
   const [userNames, setUserNames] = React.useState(null);
@@ -123,6 +123,7 @@ type NavProps = {
   history?: any;
 };
 
-export default openmrsRootDecorator({ featureName: "primary navigation" })(
-  Root
-);
+export default openmrsRootDecorator({
+  featureName: "primary navigation",
+  moduleName: "@openmrs/esm-primary-navigation"
+})(Root);
