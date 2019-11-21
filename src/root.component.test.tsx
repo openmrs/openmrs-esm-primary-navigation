@@ -45,7 +45,7 @@ jest.mock("@openmrs/esm-api", () => ({
 }));
 
 describe(`<Root />`, () => {
-  it(`renders a button with the user's name`, async () => {
+  it(`renders avatar`, async () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
     let wrapper = render(<Root />);
     await wait(() => expect(wrapper.getByText("testuser")).not.toBeNull());
