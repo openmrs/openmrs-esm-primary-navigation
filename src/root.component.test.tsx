@@ -32,7 +32,8 @@ const mockUser = {
     display: "admin",
     person: { uuid: "uuid", display: "Test User" },
     privileges: [],
-    roles: [{ uuid: "uuid", display: "System Developer" }]
+    roles: [{ uuid: "uuid", display: "System Developer" }],
+    username: "testuser"
   }
 };
 
@@ -47,13 +48,13 @@ describe(`<Root />`, () => {
   it(`renders avatar`, async () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
     let wrapper = render(<Root />);
-    await wait(() => expect(wrapper.getByText("TU")).not.toBeNull());
+    await wait(() => expect(wrapper.getByText("testuser")).not.toBeNull());
   });
 
   it(`logs out patient`, async () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
     let wrapper = renderWithRouter(<Root />);
-    fireEvent.click(wrapper.getByText("TU"));
+    fireEvent.click(wrapper.getByText("testuser"));
     await wait(() => {
       const logoutBtn = wrapper.getByText(/Logout/i);
       fireEvent.click(logoutBtn);

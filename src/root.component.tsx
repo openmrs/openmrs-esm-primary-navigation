@@ -9,25 +9,22 @@ import { createErrorHandler } from "@openmrs/esm-error-handling";
 export function Root(props: NavProps) {
   const [sidenavOpen, setSidenavOpen] = React.useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
-  const [userNames, setUserNames] = React.useState(null);
-  const [userInitials, setUserInitials] = React.useState(null);
+  const [user, setUser] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isLoggingOut, setIsLoggingOut] = React.useState(false);
 
   React.useEffect(() => {
-    const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(user => {
-      if (user.authenticated) {
-        setIsLoggedIn(true);
-        const { display } = user.user.person;
-        setUserNames(display);
-        setUserInitials(
-          `${display.split(/\s/)[0][0]}${display.split(/\s/)[1][0]}`
-        );
-      } else {
-        setIsLoggedIn(false);
+    const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(
+      response => {
+        if (response.authenticated) {
+          setIsLoggedIn(true);
+          setUser(response.user);
+        } else {
+          setIsLoggedIn(false);
+        }
+        createErrorHandler();
       }
-      createErrorHandler();
-    });
+    );
     return () => sub.unsubscribe();
   }, []);
 
@@ -86,9 +83,15 @@ export function Root(props: NavProps) {
           <div>
             <button
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              className={`omrs-unstyled ${styles.avatar}`}
+              className={`omrs-unstyled ${styles.userPopup}`}
             >
-              {userInitials}
+              {user ? user.username : ""}
+              <svg
+                className="omrs-icon"
+                fill="var(--omrs-color-ink-medium-contrast)"
+              >
+                <use xlinkHref="#omrs-icon-chevron-down" />
+              </svg>
             </button>
           </div>
         </nav>
@@ -100,7 +103,7 @@ export function Root(props: NavProps) {
         >
           <div className={`${styles.userMenuCard} omrs-padding-16`}>
             <div className="omrs-type-body-large omrs-margin-12">
-              {userNames}
+              {user ? user.person.display : ""}
             </div>
             <button
               onClick={() => setIsLoggingOut(true)}

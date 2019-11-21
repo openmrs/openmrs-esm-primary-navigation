@@ -12,10 +12,10 @@
   background-color: var(--omrs-color-ink-white);
 }
 
-.avatar {
-  border: 1px solid var(--omrs-color-bg-lowest-contrast) !important;
-  border-radius: 50% !important;
-  padding: 0.5rem !important;
+:global(.omrs-unstyled).userPopup {
+  display: flex;
+  align-items: center;
+  color: var(--omrs-color-ink-medium-contrast);
 }
 
 .userMenu {
