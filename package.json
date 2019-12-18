@@ -79,7 +79,6 @@
   "dependencies": {
     "@openmrs/esm-api": "^1.1.0",
     "@openmrs/esm-error-handling": "^1.1.0",
-    "@openmrs/react-root-decorator": "^3.1.0",
     "i18next": "^19.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
