@@ -14,13 +14,13 @@ export function Root(props: NavProps) {
   const [isLoggingOut, setIsLoggingOut] = React.useState(false);
   const openmrsSpaBase = window["getOpenmrsSpaBase"]();
 
-  React.useEffect(() => {    
+  React.useEffect(() => {
     const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(
-      response => {        
+      response => {
         if (response.authenticated) {
           setIsLoggedIn(true);
           setUser(response.user);
-        } else {          
+        } else {
           setIsLoggedIn(false);
         }
         createErrorHandler();
@@ -29,7 +29,7 @@ export function Root(props: NavProps) {
     return () => sub.unsubscribe();
   }, []);
 
-  React.useEffect(() => {    
+  React.useEffect(() => {
     const operation = sidenavOpen ? "add" : "remove";
     document.body.classList[operation]("omrs-sidenav-expanded");
 
@@ -66,9 +66,13 @@ export function Root(props: NavProps) {
             // @ts-ignore
             to={{
               pathname: `${openmrsSpaBase}login`,
-              state: { 
-                referrer: window.location.pathname.slice(window.location.pathname.indexOf(openmrsSpaBase) + openmrsSpaBase.length -1)               
-              }  
+              state: {
+                referrer: window.location.pathname.slice(
+                  window.location.pathname.indexOf(openmrsSpaBase) +
+                    openmrsSpaBase.length -
+                    1
+                )
+              }
             }}
           />
         )}
