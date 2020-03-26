@@ -2,7 +2,7 @@ import React from "react";
 import openmrsRootDecorator from "@openmrs/react-root-decorator";
 import styles from "./root.styles.css";
 import { toggle } from "kremling";
-import { BrowserRouter, Redirect } from "react-router-dom";
+import { BrowserRouter, Redirect, withRouter, Link } from "react-router-dom";
 import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
 import { createErrorHandler } from "@openmrs/esm-error-handling";
 
@@ -77,14 +77,11 @@ export function Root(props: NavProps) {
           />
         )}
         <nav className={styles.topNav}>
-          <button
-            className="omrs-unstyled omrs-padding-left-4 omrs-padding-right-4"
-            onClick={toggleSidenav}
-          >
+          <Link to={`${openmrsSpaBase}home`}>
             <svg className="omrs-icon">
-              <use xlinkHref="#omrs-icon-menu" />
+              <use xlinkHref="#omrs-icon-home"></use>
             </svg>
-          </button>
+          </Link>
           <div className="omrs-type-title-4">
             <svg role="img" width="10rem">
               <use xlinkHref="#omrs-logo-partial-mono"></use>
