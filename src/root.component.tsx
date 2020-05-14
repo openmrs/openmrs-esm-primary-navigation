@@ -84,7 +84,7 @@ export function Root(props: NavProps) {
           </Link>
           <div className="omrs-type-title-4">
             <svg role="img" width="10rem">
-              <use xlinkHref="#omrs-logo-partial-mono"></use>
+              <use xlinkHref="#omrs-logo-partial-color"></use>
             </svg>
           </div>
           <div>
