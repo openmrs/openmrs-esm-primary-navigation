@@ -1,6 +1,5 @@
 .topNav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   position: fixed;
   top: 0;
@@ -39,4 +38,16 @@
 
 .hidden {
   display: none;
+}
+
+.logo {
+  width: 55%;
+  text-align: right;
+}
+
+.location {
+  width: 45%;
+  text-align: right;
+  margin-right: 1rem;
+  font-weight: bold;
 }
