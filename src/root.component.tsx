@@ -98,9 +98,16 @@ export function Root(props: NavProps) {
             </svg>
           </div>
           <div className={styles.location}>
-            {currentSession && currentSession.sessionLocation
-              ? currentSession.sessionLocation.display
-              : ""}
+            <span>
+              <svg className={styles.locSvg}>
+                <use xlinkHref="#omrs-icon-location" />
+              </svg>
+            </span>
+            <span>
+              {currentSession && currentSession.sessionLocation
+                ? currentSession.sessionLocation.display
+                : ""}
+            </span>
           </div>
           <div>
             <button
