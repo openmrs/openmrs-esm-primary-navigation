@@ -66,7 +66,7 @@ export function Root(props: NavProps) {
     }).then(({ data }) => {
       setCurrentSession(data);
     });
-  });
+  }, []);
 
   return (
     <BrowserRouter>
