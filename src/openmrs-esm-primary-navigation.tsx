@@ -6,7 +6,7 @@ import Root from "./root.component";
 const { bootstrap, mount, unmount } = singleSpaReact({
   React,
   ReactDOM,
-  rootComponent: Root,
+  rootComponent: Root
 });
 
 export { bootstrap, mount, unmount };
