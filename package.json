@@ -1,5 +1,5 @@
 {
-  "name": "@openmrs/esm-primary-navigation",
+  "name": "@openmrs/esm-primary-navigation-app",
   "version": "1.0.0",
   "description": "Main navbar microfrontend for the OpenMRS SPA",
   "main": "dist/openmrs-esm-primary-navigation.js",
