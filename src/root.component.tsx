@@ -12,6 +12,7 @@ export function Root(props: NavProps) {
   const [user, setUser] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isLoggingOut, setIsLoggingOut] = React.useState(false);
+  const [currentSession, setCurrentSession] = React.useState(null);
   const openmrsSpaBase = window["getOpenmrsSpaBase"]();
 
   React.useEffect(() => {
@@ -58,6 +59,15 @@ export function Root(props: NavProps) {
     }
   });
 
+  React.useEffect(() => {
+    const abortController = new AbortController();
+    openmrsFetch("/ws/rest/v1/appui/session", {
+      signal: abortController.signal
+    }).then(({ data }) => {
+      setCurrentSession(data);
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <>
@@ -82,10 +92,22 @@ export function Root(props: NavProps) {
               <use xlinkHref="#omrs-icon-home"></use>
             </svg>
           </Link>
-          <div className="omrs-type-title-4">
+          <div className={`omrs-type-title-4 ${styles.logo}`}>
             <svg role="img" width="10rem">
               <use xlinkHref="#omrs-logo-partial-mono"></use>
             </svg>
+          </div>
+          <div className={styles.location}>
+            <span>
+              <svg className={styles.locSvg}>
+                <use xlinkHref="#omrs-icon-location" />
+              </svg>
+            </span>
+            <span>
+              {currentSession && currentSession.sessionLocation
+                ? currentSession.sessionLocation.display
+                : ""}
+            </span>
           </div>
           <div>
             <button
