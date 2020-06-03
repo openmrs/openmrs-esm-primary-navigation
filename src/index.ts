@@ -1,5 +1,4 @@
 import "./set-public-path";
-import { routePrefix } from "@openmrs/esm-root-config";
 import { backendDependencies } from "./openmrs-backend-dependencies";
 
 const importTranslation = require.context(
@@ -9,10 +8,17 @@ const importTranslation = require.context(
   "lazy"
 );
 
+declare global {
+  interface Window {
+    getOpenmrsSpaBase(): string;
+  }
+}
+
 function setupOpenMRS() {
   return {
     lifecycle: () => import("./openmrs-esm-primary-navigation"),
-    activate: (location) => !routePrefix("login", location),
+    activate: (location: Location) =>
+      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
   };
 }
 
