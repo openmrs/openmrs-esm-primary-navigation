@@ -157,5 +157,5 @@ type NavProps = {
 
 export default openmrsRootDecorator({
   featureName: "primary navigation",
-  moduleName: "@openmrs/esm-primary-navigation"
+  moduleName: "@openmrs/esm-primary-navigation-app"
 })(Root);
