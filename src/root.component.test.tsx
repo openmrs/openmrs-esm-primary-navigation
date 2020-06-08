@@ -2,7 +2,7 @@ import React from "react";
 import { render, cleanup, fireEvent, wait } from "@testing-library/react";
 import { Root } from "./root.component";
 import { of } from "rxjs";
-import { getCurrentUser } from "@openmrs/esm-api";
+import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
 
@@ -22,6 +22,8 @@ function renderWithRouter(
 }
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
+const mockOpenMrsFetch = openmrsFetch as jest.Mock;
+
 window["getOpenmrsSpaBase"] = jest.fn().mockImplementation(() => "/");
 afterAll(cleanup);
 
@@ -53,11 +55,29 @@ describe(`<Root />`, () => {
 
   it(`logs out patient`, async () => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
+    mockOpenMrsFetch.mockImplementation(() => {
+      return Promise.resolve({});
+    });
     let wrapper = renderWithRouter(<Root />);
     fireEvent.click(wrapper.getByText("testuser"));
     await wait(() => {
       const logoutBtn = wrapper.getByText(/Logout/i);
       fireEvent.click(logoutBtn);
+      expect(mockOpenMrsFetch).toHaveBeenCalledWith("/ws/rest/v1/session", {
+        method: "DELETE"
+      });
+    });
+  });
+
+  it("shouls show selected location in navigation header", async () => {
+    mockOpenMrsFetch.mockImplementation(() => {
+      return Promise.resolve({
+        sessionLocation: { display: "Registration Desk" }
+      });
+    });
+    const wrapper = render(<Root />);
+    wait(() => {
+      expect(wrapper.queryByText("Registration Desk")).toBeInTheDocument();
     });
   });
 });
