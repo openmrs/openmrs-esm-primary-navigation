@@ -70,7 +70,7 @@ export function Root(props: NavProps) {
 
   return (
     <BrowserRouter>
-      <>
+      <div className={styles.primaryNavContainer}>
         {!isLoggedIn && (
           <Redirect
             // @ts-ignore
@@ -142,7 +142,7 @@ export function Root(props: NavProps) {
             </button>
           </div>
         </div>
-      </>
+      </div>
     </BrowserRouter>
   );
 
