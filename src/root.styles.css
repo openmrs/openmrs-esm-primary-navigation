@@ -1,7 +1,12 @@
+.primaryNavContainer {
+  position: fixed;
+  top: 0;
+}
+
 .topNav {
   display: flex;
   align-items: center;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   height: var(--omrs-topnav-height);
