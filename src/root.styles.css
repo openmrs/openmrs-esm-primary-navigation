@@ -3,3 +3,109 @@
   top: 0;
   z-index: 3;
 }
+
+.topNav {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: var(--omrs-topnav-height);
+  width: 100vw;
+  padding: 0 0.5rem;
+  backdrop-filter: blur(24px);
+  background-color: var(--omrs-color-ink-white);
+}
+
+:global(.omrs-unstyled).userPopup {
+  display: flex;
+  align-items: center;
+  color: var(--omrs-color-ink-medium-contrast);
+}
+
+.userMenu {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  width: 100%;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.userMenuCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--omrs-color-ink-lowest-contrast);
+  border-radius: 0 0 0.25rem 0.25rem;
+  background: var(--omrs-color-bg-high-contrast);
+  border-top: none;
+  pointer-events: all;
+}
+
+.hidden {
+  display: none;
+}
+
+.logo {
+  width: 55%;
+  text-align: right;
+}
+
+.location {
+  width: 45%;
+  text-align: right;
+  margin-right: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+:global(.omrs-breakpoint-lt-tablet) .location {
+  margin-right: 0.125rem;
+  text-align: center;
+}
+
+.locationBorder {
+  padding: 0.625rem;
+  border-radius: 0.25rem;
+  border: 0.0625rem solid var(--omrs-color-bg-lowest-contrast);
+}
+
+:global(.omrs-breakpoint-lt-tablet) .locationBorder {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem;
+  border-radius: 0.25rem;
+  min-height: 3rem;
+  border: none;
+}
+
+.locSvg {
+  height: 1.3rem;
+  width: 1.5rem;
+}
+
+.changeLocationContainer {
+  display: flex;
+
+  position: absolute;
+  z-index: 3;
+  background-color: var(--omrs-color-ink-white);
+  border: 0rem 0.0625rem 0.0625rem 0.0625rem solid
+    var(--omrs-color-ink-lowest-contrast);
+  outline: none;
+  width: fit-content;
+}
+
+:global(.omrs-breakpoint-lt-tablet) .changeLocationContainer > div {
+  padding: 0.0625rem;
+  margin: 0rem 0.625rem 0rem 0rem;
+  width: 100vw;
+}
+
+:global(.omrs-breakpoint-gt-phone) .changeLocationContainer {
+  padding: 0.125rem;
+  max-width: 50%;
+  right: 0;
+}
