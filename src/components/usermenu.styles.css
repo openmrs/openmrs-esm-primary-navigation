@@ -1,0 +1,24 @@
+.userMenu {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  width: 100%;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.userMenuCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--omrs-color-ink-lowest-contrast);
+  border-radius: 0 0 0.25rem 0.25rem;
+  background: var(--omrs-color-bg-high-contrast);
+  border-top: none;
+  pointer-events: all;
+}
+
+.hidden {
+  display: none;
+}

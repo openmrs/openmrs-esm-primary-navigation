@@ -1,0 +1,5 @@
+:global(.omrs-unstyled).userPopup {
+  display: flex;
+  align-items: center;
+  color: var(--omrs-color-ink-medium-contrast);
+}

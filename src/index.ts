@@ -18,7 +18,7 @@ function setupOpenMRS() {
   return {
     lifecycle: () => import("./openmrs-esm-primary-navigation"),
     activate: (location: Location) =>
-      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
+      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login")
   };
 }
 
