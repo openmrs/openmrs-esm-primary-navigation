@@ -59,6 +59,7 @@
   margin-right: 1rem;
   font-weight: bold;
   cursor: pointer;
+  outline: none;
 }
 
 :global(.omrs-breakpoint-lt-tablet) .location {
@@ -88,7 +89,6 @@
 
 .changeLocationContainer {
   display: flex;
-
   position: absolute;
   z-index: 3;
   background-color: var(--omrs-color-ink-white);

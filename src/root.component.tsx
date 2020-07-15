@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import openmrsRootDecorator from "@openmrs/react-root-decorator";
 import styles from "./root.styles.css";
 import Navbar from "./components/navbar.component";
@@ -11,7 +11,6 @@ export function Root() {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
   const logout = React.useCallback(() => setUser(false), []);
   const openmrsSpaBase = window["getOpenmrsSpaBase"]();
-  const [refreshLocation, setRefreshLocation] = useState<boolean>();
 
   React.useEffect(() => {
     const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(
