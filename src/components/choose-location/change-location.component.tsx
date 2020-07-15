@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Parcel from "single-spa-react/parcel";
-import { getCurrentSession } from "../root.resource";
+import { getCurrentSession } from "../../root.resource";
 import {
   setSessionLocation,
   searchLocationsFhir
 } from "./change-location.resource";
 import { createErrorHandler } from "@openmrs/esm-error-handling";
+import { UserSession } from "../../types";
+import styles from "./change-location.styles.css";
 
 type ChangeLocationProps = {
-  refreshLocation(currentSession): void;
+  refreshLocation(): void;
 };
 
 export function ChangeLocation(props: ChangeLocationProps) {
@@ -37,13 +39,18 @@ export function ChangeLocation(props: ChangeLocationProps) {
     const ac = new AbortController();
     setSessionLocation(locationUuid, ac).then((response: any) => {
       if (response.status === 200) {
-        props.refreshLocation(response.data);
+        props.refreshLocation();
       }
     });
   }
 
   return (
-    <div>
+    <div
+      className={styles.changeLocationContainer}
+      onClick={evt => evt.stopPropagation()}
+      role="button"
+      tabIndex={-1}
+    >
       {location && locationUuid && (
         <Parcel
           config={() =>

@@ -5,7 +5,8 @@ import Details from "./details.component";
 import Location from "./location.component";
 import UserMenu from "./usermenu.component";
 import { Link } from "react-router-dom";
-import { LoggedInUser } from "../types";
+import { LoggedInUser, UserSession } from "../types";
+import { ChangeLocation } from "./choose-location/change-location.component";
 
 export interface NavbarProps {
   user: LoggedInUser;
@@ -20,6 +21,13 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
     () => setIsUserMenuOpen(current => !current),
     []
   );
+  const [displayChangeLocationUI, setDisplayChangeLocationUI] = React.useState(
+    false
+  );
+  const toggleChangeLocationUI = React.useCallback(
+    () => setDisplayChangeLocationUI(current => !current),
+    []
+  );
 
   React.useEffect(() => {
     if (isUserMenuOpen) {
@@ -29,11 +37,22 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
   }, [isUserMenuOpen, toggleMenu]);
 
   React.useEffect(() => {
+    if (displayChangeLocationUI === true) {
+      window.addEventListener("click", toggleChangeLocationUI);
+      return () => window.removeEventListener("click", toggleChangeLocationUI);
+    }
+  }, [displayChangeLocationUI, toggleChangeLocationUI]);
+
+  React.useEffect(() => {
     if (sidenavOpen) {
       document.body.classList.add("omrs-sidenav-expanded");
       return () => document.body.classList.remove("omrs-sidenav-expanded");
     }
   }, [sidenavOpen]);
+
+  const reLoadLocation = (): void => {
+    setDisplayChangeLocationUI(false);
+  };
 
   return (
     <>
@@ -48,12 +67,18 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
             <use xlinkHref="#omrs-logo-partial-mono" />
           </svg>
         </div>
-        <Location />
+        <Location
+          reLoadLocation={displayChangeLocationUI}
+          toggleChangeLocationUI={toggleChangeLocationUI}
+        />
         <Details user={user} onToggle={toggleMenu} />
       </nav>
       <UserMenu user={user} open={isUserMenuOpen}>
         <Logout onLogout={onLogout} />
       </UserMenu>
+      {displayChangeLocationUI && (
+        <ChangeLocation refreshLocation={reLoadLocation} />
+      )}
     </>
   );
 };

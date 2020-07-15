@@ -1,0 +1,25 @@
+.hidden {
+  display: none;
+}
+.changeLocationContainer {
+  display: flex;
+  position: absolute;
+  z-index: 3;
+  background-color: var(--omrs-color-ink-white);
+  border: 0rem 0.0625rem 0.0625rem 0.0625rem solid
+    var(--omrs-color-ink-lowest-contrast);
+  outline: none;
+  width: fit-content;
+}
+
+:global(.omrs-breakpoint-lt-tablet) .changeLocationContainer > div {
+  padding: 0.0625rem;
+  margin: 0rem 0.625rem 0rem 0rem;
+  width: 100vw;
+}
+
+:global(.omrs-breakpoint-gt-phone) .changeLocationContainer {
+  padding: 0.125rem;
+  max-width: 50%;
+  right: 0;
+}

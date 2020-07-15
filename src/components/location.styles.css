@@ -3,6 +3,14 @@
   text-align: right;
   margin-right: 1rem;
   font-weight: bold;
+  outline: none;
+}
+
+.location > span {
+  cursor: pointer;
+  padding: 0.625rem;
+  border-radius: 0.25rem;
+  border: 0.0625rem solid var(--omrs-color-bg-lowest-contrast);
 }
 
 .locSvg {
