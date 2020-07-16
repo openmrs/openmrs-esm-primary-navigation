@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./navbar.styles.css";
+import styles from "./usermenu.styles.css";
 import { toggle } from "kremling";
 import { LoggedInUser } from "../types";
 
