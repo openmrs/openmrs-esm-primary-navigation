@@ -9,12 +9,14 @@ import { LoggedInUser } from "./types";
 
 export function Root() {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
+  const [allowedLocales, setAllowedLocales] = React.useState();
   const logout = React.useCallback(() => setUser(false), []);
   const openmrsSpaBase = window["getOpenmrsSpaBase"]();
 
   React.useEffect(() => {
     const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(
       response => {
+        setAllowedLocales(response["allowedLocales"]);
         if (response.authenticated) {
           setUser(response.user);
         } else {
@@ -45,7 +47,13 @@ export function Root() {
             }}
           />
         ) : (
-          user && <Navbar user={user} onLogout={logout} />
+          user && (
+            <Navbar
+              allowedLocales={allowedLocales}
+              user={user}
+              onLogout={logout}
+            />
+          )
         )}
       </div>
     </BrowserRouter>

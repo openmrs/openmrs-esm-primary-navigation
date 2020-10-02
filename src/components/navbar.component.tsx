@@ -10,10 +10,11 @@ import { ChangeLocation } from "./choose-location/change-location.component";
 
 export interface NavbarProps {
   user: LoggedInUser;
+  allowedLocales: Array<string>;
   onLogout(): void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
+const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
   const [sidenavOpen] = React.useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
   const openmrsSpaBase = window["getOpenmrsSpaBase"]();
@@ -73,7 +74,11 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
         />
         <Details user={user} onToggle={toggleMenu} />
       </nav>
-      <UserMenu user={user} open={isUserMenuOpen}>
+      <UserMenu
+        user={user}
+        allowedLocales={allowedLocales}
+        open={isUserMenuOpen}
+      >
         <Logout onLogout={onLogout} />
       </UserMenu>
       {displayChangeLocationUI && (

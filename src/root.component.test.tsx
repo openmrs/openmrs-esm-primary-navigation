@@ -35,8 +35,12 @@ const mockUser = {
     person: { uuid: "uuid", display: "Test User" },
     privileges: [],
     roles: [{ uuid: "uuid", display: "System Developer" }],
-    username: "testuser"
-  }
+    username: "testuser",
+    userProperties: {
+      defaultLocale: "en"
+    }
+  },
+  allowedLocales: ["en", "fr", "it", "pt"]
 };
 
 jest.mock("@openmrs/esm-api", () => ({
