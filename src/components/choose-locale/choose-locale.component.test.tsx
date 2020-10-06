@@ -1,43 +1,38 @@
 import React from "react";
-import { render, fireEvent, wait } from "@testing-library/react";
+import { render, fireEvent, screen, wait } from "@testing-library/react";
 import { ChangeLocale } from "./change-locale.component";
 import * as backendController from "./change-locale.resource";
 
-describe(`<ChangeLocale />`, () => {
-  const setupLocaleSelect = async () => {
-    const wrapper = render(
-      <ChangeLocale
-        allowedLocales={["en", "fr", "it", "pt"]}
-        user={{
-          uuid: "uuid",
-          userProperties: {
-            defaultLocale: "en"
-          }
-        }}
-      />
-    );
-    await wait();
+const allowedLocales = ["en", "fr", "it", "pt"];
+const user = {
+  uuid: "uuid",
+  userProperties: {
+    defaultLocale: "fr"
+  }
+};
 
-    return wrapper.getByDisplayValue("en") as HTMLInputElement;
-  };
+describe(`<ChangeLocale />`, () => {
+  beforeEach(() =>
+    render(<ChangeLocale allowedLocales={allowedLocales} user={user} />)
+  );
 
   it("should have user's defaultLocale as initial value", async () => {
-    expect((await setupLocaleSelect()).value).toBe("en");
+    expect(screen.getByLabelText("selectLocale")).toHaveValue("fr");
   });
 
   it("should change user locale", async () => {
     spyOn(backendController, "updateUserProperties").and.returnValue(
       Promise.resolve({})
     );
-    const localeSelect = await setupLocaleSelect();
-
-    fireEvent.change(localeSelect, { target: { value: "fr" } });
+    fireEvent.change(screen.getByLabelText("selectLocale"), {
+      target: { value: "en" }
+    });
     await wait();
 
     expect(backendController.updateUserProperties).toHaveBeenCalledWith(
       "uuid",
       {
-        defaultLocale: "fr"
+        defaultLocale: "en"
       },
       expect.anything()
     );

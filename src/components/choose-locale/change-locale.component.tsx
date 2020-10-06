@@ -20,13 +20,13 @@ export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
 
   useEffect(() => {
     if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
-      updateUserProperties(user.uuid, userProps, new AbortController()).then(
-        response => {
-          if (response.ok) {
-            refetchCurrentUser();
-          }
+      const ac = new AbortController();
+      updateUserProperties(user.uuid, userProps, ac).then(response => {
+        if (response.ok) {
+          refetchCurrentUser();
         }
-      );
+      });
+      return () => ac.abort();
     }
   }, [userProps]);
 
