@@ -1,12 +1,16 @@
 import React from "react";
-import styles from "./navbar.styles.css";
-import Logout from "./logout.component";
-import Details from "./details.component";
-import Location from "./location.component";
-import UserMenu from "./usermenu.component";
-import { Link } from "react-router-dom";
-import { LoggedInUser, UserSession } from "../types";
-import { ChangeLocation } from "./choose-location/change-location.component";
+import { LoggedInUser } from "../types";
+import { Location20, UserAvatar20 } from "@carbon/icons-react";
+import {
+  HeaderContainer,
+  Header,
+  HeaderMenuButton,
+  HeaderName,
+  HeaderGlobalBar,
+  HeaderGlobalAction
+} from "carbon-components-react";
+import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
+import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
 
 export interface NavbarProps {
   user: LoggedInUser;
@@ -15,76 +19,84 @@ export interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
-  const [sidenavOpen] = React.useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
-  const openmrsSpaBase = window["getOpenmrsSpaBase"]();
-  const toggleMenu = React.useCallback(
-    () => setIsUserMenuOpen(current => !current),
-    []
+  const headerRef = React.useRef(null);
+  const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(
+    null
   );
-  const [displayChangeLocationUI, setDisplayChangeLocationUI] = React.useState(
-    false
-  );
-  const toggleChangeLocationUI = React.useCallback(
-    () => setDisplayChangeLocationUI(current => !current),
-    []
-  );
-
-  React.useEffect(() => {
-    if (isUserMenuOpen) {
-      window.addEventListener("click", toggleMenu);
-      return () => window.removeEventListener("click", toggleMenu);
-    }
-  }, [isUserMenuOpen, toggleMenu]);
-
-  React.useEffect(() => {
-    if (displayChangeLocationUI === true) {
-      window.addEventListener("click", toggleChangeLocationUI);
-      return () => window.removeEventListener("click", toggleChangeLocationUI);
-    }
-  }, [displayChangeLocationUI, toggleChangeLocationUI]);
-
-  React.useEffect(() => {
-    if (sidenavOpen) {
-      document.body.classList.add("omrs-sidenav-expanded");
-      return () => document.body.classList.remove("omrs-sidenav-expanded");
-    }
-  }, [sidenavOpen]);
-
-  const reLoadLocation = (): void => {
-    setDisplayChangeLocationUI(false);
+  const isActivePanel = (panelName: string) => {
+    return activeHeaderPanel == panelName;
   };
 
+  const togglePanel = (panelName: string) => {
+    panelName === activeHeaderPanel
+      ? setActiveHeaderPanel(null)
+      : setActiveHeaderPanel(panelName);
+  };
+
+  const hidePanel = () => {
+    setActiveHeaderPanel(null);
+  };
+
+  const handleClickOutside = event => {
+    if (headerRef.current && !headerRef.current.contains(event.target)) {
+      hidePanel();
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
+
   return (
-    <>
-      <nav className={styles.topNav}>
-        <Link to={`${openmrsSpaBase}home`}>
-          <svg className="omrs-icon">
-            <use xlinkHref="#omrs-icon-home" />
-          </svg>
-        </Link>
-        <div className={`omrs-type-title-4 ${styles.logo}`}>
-          <svg role="img" width="10rem">
-            <use xlinkHref="#omrs-logo-partial-mono" />
-          </svg>
-        </div>
-        <Location
-          reLoadLocation={displayChangeLocationUI}
-          toggleChangeLocationUI={toggleChangeLocationUI}
-        />
-        <Details user={user} onToggle={toggleMenu} />
-      </nav>
-      <UserMenu
-        user={user}
-        allowedLocales={allowedLocales}
-        open={isUserMenuOpen}
-      >
-        <Logout onLogout={onLogout} />
-      </UserMenu>
-      {displayChangeLocationUI && (
-        <ChangeLocation refreshLocation={reLoadLocation} />
-      )}
-    </>
+    <div ref={headerRef}>
+      <HeaderContainer
+        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+          <Header aria-label="OpenMRS">
+            <HeaderMenuButton
+              aria-label="Open menu"
+              isCollapsible
+              onClick={onClickSideNavExpand}
+              isActive={isSideNavExpanded}
+            />
+            <HeaderName prefix="">OpenMRS</HeaderName>
+
+            <HeaderGlobalBar>
+              <HeaderGlobalAction
+                aria-label="Location"
+                aria-labelledby="Location Icon"
+                onClick={evt => togglePanel("location")}
+                isActive={isActivePanel("location")}
+                name="LocationIcon"
+              >
+                <Location20 />
+              </HeaderGlobalAction>
+              <HeaderGlobalAction
+                aria-label="Users"
+                aria-labelledby="Users Avator Icon"
+                name="Users"
+                isActive={isActivePanel("userMenu")}
+                onClick={evt => togglePanel("userMenu")}
+              >
+                <UserAvatar20 />
+              </HeaderGlobalAction>
+            </HeaderGlobalBar>
+            <LocationChangePanel
+              expanded={isActivePanel("location")}
+              refreshLocation={hidePanel}
+            />
+            <UserMenuPanel
+              user={user}
+              expanded={isActivePanel("userMenu")}
+              allowedLocales={allowedLocales}
+              onLogout={onLogout}
+            />
+          </Header>
+        )}
+      />
+    </div>
   );
 };
 

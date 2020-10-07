@@ -10,6 +10,7 @@ import { UserSession } from "../../types";
 import styles from "./change-location.styles.css";
 
 type ChangeLocationProps = {
+  LoadLocations: boolean;
   refreshLocation(): void;
 };
 
@@ -19,21 +20,26 @@ export function ChangeLocation(props: ChangeLocationProps) {
   const [location, setLocations] = useState<Array<any>>();
 
   useEffect(() => {
-    const ac = new AbortController();
-    getCurrentSession(ac).then(({ data }) => {
-      setLocationUuid(data.sessionLocation.uuid);
-      setCurrentUser(data.user.display);
-    }, createErrorHandler());
-    return () => ac.abort();
+    if (props.LoadLocations) {
+      const ac = new AbortController();
+      getCurrentSession(ac).then(({ data }) => {
+        setLocationUuid(data.sessionLocation.uuid);
+        setCurrentUser(data.user.display);
+      }, createErrorHandler());
+      return () => ac.abort();
+    }
   }, []);
 
   useEffect(() => {
-    const ac = new AbortController();
-    searchLocationsFhir("", ac).then(
-      ({ data }) => setLocations(data.entry),
-      createErrorHandler()
-    );
-  }, []);
+    if (props.LoadLocations) {
+      const ac = new AbortController();
+      searchLocationsFhir("", ac).then(
+        ({ data }) => setLocations(data.entry),
+        createErrorHandler()
+      );
+      return () => ac.abort();
+    }
+  }, [props.LoadLocations]);
 
   function onChangeLocation(locationUuid: string) {
     const ac = new AbortController();

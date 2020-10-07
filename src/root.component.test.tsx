@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, fireEvent, wait } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Root } from "./root.component";
 import { of } from "rxjs";
 import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
@@ -25,7 +25,6 @@ const mockGetCurrentUser = getCurrentUser as jest.Mock;
 const mockOpenMrsFetch = openmrsFetch as jest.Mock;
 
 window["getOpenmrsSpaBase"] = jest.fn().mockImplementation(() => "/");
-afterAll(cleanup);
 
 const mockUser = {
   authenticated: true,
@@ -37,10 +36,9 @@ const mockUser = {
     roles: [{ uuid: "uuid", display: "System Developer" }],
     username: "testuser",
     userProperties: {
-      defaultLocale: "en"
+      defaultLocale: "fr"
     }
-  },
-  allowedLocales: ["en", "fr", "it", "pt"]
+  }
 };
 
 jest.mock("@openmrs/esm-api", () => ({
@@ -51,40 +49,19 @@ jest.mock("@openmrs/esm-api", () => ({
 }));
 
 describe(`<Root />`, () => {
-  it("renders avatar", async () => {
+  let wrapper;
+  beforeEach(() => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
-    const wrapper = render(<Root />);
-    await wait(() => expect(wrapper.getByText("testuser")).not.toBeNull());
+    wrapper = render(<Root />);
   });
 
-  it("logs out patient", async () => {
-    mockGetCurrentUser.mockImplementation(() => of(mockUser));
-    const wrapper = renderWithRouter(<Root />);
-
-    fireEvent.click(wrapper.getByText("testuser"));
-
-    fireEvent.click(wrapper.getByText(/Logout/i));
-
-    await wait(() => {
-      expect(mockOpenMrsFetch).toHaveBeenCalledWith("/ws/rest/v1/session", {
-        method: "DELETE"
-      });
-    });
-  });
-
-  it("should show selected location in navigation header", async () => {
-    mockOpenMrsFetch.mockImplementation(() => {
-      return Promise.resolve({
-        data: {
-          sessionLocation: { display: "Registration Desk" }
-        }
-      });
-    });
-    mockGetCurrentUser.mockImplementation(() => of(mockUser));
-    const wrapper = render(<Root />);
-
-    await wait(() => {
-      expect(wrapper.queryByText("Registration Desk")).toBeInTheDocument();
-    });
+  it("should display navbar with title", async () => {
+    expect(screen.getByRole("button", { name: /Users/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("banner", { name: /OpenMRS/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Location/i })
+    ).toBeInTheDocument();
   });
 });

@@ -16,22 +16,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
   open,
   allowedLocales
 }) => {
-  return (
-    <div
-      className={toggle(styles.userMenu, styles.hidden, open)}
-      role="button"
-      onClick={evt => evt.stopPropagation()}
-      tabIndex={-1}
-    >
-      <div className={`${styles.userMenuCard} omrs-padding-16`}>
-        <div className="omrs-type-body-large omrs-margin-12">
-          {user.person.display}
-        </div>
-        <ChangeLocale allowedLocales={allowedLocales} user={user} />
-        {children}
-      </div>
-    </div>
-  );
+  return <ChangeLocale allowedLocales={allowedLocales} user={user} />;
 };
 
 export default UserMenu;

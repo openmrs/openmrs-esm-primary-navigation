@@ -1,4 +1,5 @@
 import { refetchCurrentUser } from "@openmrs/esm-api";
+import { Select, SelectItem, SelectItemGroup } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
 import { updateUserProperties } from "./change-locale.resource";
 
@@ -13,9 +14,7 @@ export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
 }) => {
   const [userProps, setUserProps] = useState(user.userProperties);
   const options = allowedLocales?.map(locale => (
-    <option value={locale} key={locale}>
-      {locale}
-    </option>
+    <SelectItem text={locale} value={locale} key={locale} />
   ));
 
   useEffect(() => {
@@ -32,18 +31,18 @@ export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
 
   return (
     <div className="omrs-margin-12">
-      <label htmlFor="selectLocale">
-        <span>Select Locale</span>
-      </label>
-      <select
-        value={userProps.defaultLocale}
-        aria-label="selectLocale"
+      <Select
+        name="selectLocale"
+        id="selectLocale"
+        invalidText="A valid value locale is required"
+        labelText="Select locale"
         onChange={event =>
           setUserProps({ ...userProps, defaultLocale: event.target.value })
         }
+        value={userProps.defaultLocale}
       >
         {options}
-      </select>
+      </Select>
     </div>
   );
 };
