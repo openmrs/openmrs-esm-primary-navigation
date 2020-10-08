@@ -1,5 +1,6 @@
 import React from "react";
 import { openmrsFetch, refetchCurrentUser } from "@openmrs/esm-api";
+import { Button, Link, SwitcherItem } from "carbon-components-react";
 
 export interface LogoutProps {
   onLogout(): void;
@@ -21,12 +22,14 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
   }, [isLoggingOut, onLogout]);
 
   return (
-    <button
+    <SwitcherItem
+      isSelected
       onClick={() => setIsLoggingOut(true)}
-      className="omrs-btn omrs-outlined-neutral"
+      aria-labelledby="Logout"
+      role="button"
     >
       Logout
-    </button>
+    </SwitcherItem>
   );
 };
 

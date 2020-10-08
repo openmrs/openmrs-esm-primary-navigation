@@ -12,19 +12,23 @@ const user = {
 };
 
 describe(`<ChangeLocale />`, () => {
-  beforeEach(() =>
-    render(<ChangeLocale allowedLocales={allowedLocales} user={user} />)
+  let wrapper;
+  beforeEach(
+    () =>
+      (wrapper = render(
+        <ChangeLocale allowedLocales={allowedLocales} user={user} />
+      ))
   );
 
   it("should have user's defaultLocale as initial value", async () => {
-    expect(screen.getByLabelText("selectLocale")).toHaveValue("fr");
+    expect(screen.getByLabelText(/Select locale/)).toHaveValue("fr");
   });
 
   it("should change user locale", async () => {
     spyOn(backendController, "updateUserProperties").and.returnValue(
       Promise.resolve({})
     );
-    fireEvent.change(screen.getByLabelText("selectLocale"), {
+    fireEvent.change(screen.getByLabelText(/select Locale/i), {
       target: { value: "en" }
     });
     await wait();
