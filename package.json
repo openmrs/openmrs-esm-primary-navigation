@@ -1,41 +1,53 @@
 {
   "name": "@openmrs/esm-primary-navigation-app",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Main navbar microfrontend for the OpenMRS SPA",
   "homepage": "https://github.com/openmrs/openmrs-esm-primary-navigation#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/openmrs/openmrs-esm-primary-navigation.git"
-  },
-  "keywords": [
-    "openmrs"
-  ],
   "license": "MPL-2.0",
   "main": "dist/openmrs-esm-primary-navigation.js",
   "types": "src/index.ts",
-  "directories": {
-    "lib": "dist"
-  },
   "scripts": {
+    "start": "openmrs debug --importmap @",
     "build": "webpack --mode production",
     "lint": "eslint src --ext tsx",
     "prepublishOnly": "npm run build",
     "prettier": "prettier 'src/**/*' --write",
-    "start": "webpack-dev-server",
-    "start-https": "webpack-dev-server --https",
     "test": "jest --config jest.config.json",
     "typescript": "tsc"
+  },
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged && concurrently npm:lint npm:test npm:typescript"
     }
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openmrs/openmrs-esm-primary-navigation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openmrs/openmrs-esm-primary-navigation/issues"
+  },
   "dependencies": {
     "carbon-components-react": "^7.21.0"
+  },
+  "peerDependencies": {
+    "@openmrs/esm-api": "^3.0.0",
+    "@openmrs/esm-error-handling": "^3.0.0",
+    "i18next": "^19.6.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.7.0",
+    "react-router-dom": "^5.2.0",
+    "single-spa": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
@@ -45,8 +57,8 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@openmrs/esm-api": "^3.0.0",
-    "@openmrs/esm-error-handling": "^1.1.1",
-    "@openmrs/react-root-decorator": "^3.2.0",
+    "@openmrs/esm-error-handling": "^3.0.0",
+    "@openmrs/react-root-decorator": "^3.3.1",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^9.5.0",
     "@types/carbon-components": "^10.15.0",
@@ -79,6 +91,7 @@
     "jest": "^26.1.0",
     "jest-cli": "^26.1.0",
     "kremling": "^2.0.4",
+    "openmrs": "^3.0.2",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
@@ -89,19 +102,9 @@
     "single-spa-react": "^2.14.0",
     "style-loader": "^1.2.1",
     "systemjs-webpack-interop": "^1.2.1",
-    "typescript": "^3.9.6",
+    "typescript": "^4.0.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  },
-  "peerDependencies": {
-    "@openmrs/esm-api": "^3.0.0",
-    "@openmrs/esm-error-handling": "^1.1.1",
-    "i18next": "^19.6.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-i18next": "^11.7.0",
-    "react-router-dom": "^5.2.0",
-    "single-spa": "^4.4.1"
   }
 }
