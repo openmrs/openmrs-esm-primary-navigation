@@ -37,6 +37,7 @@
     "url": "https://github.com/openmrs/openmrs-esm-primary-navigation/issues"
   },
   "dependencies": {
+    "@openmrs/react-root-decorator": "^3.3.1",
     "carbon-components-react": "^7.21.0",
     "kremling": "^2.0.4",
     "single-spa-react": "^2.14.0",
@@ -44,6 +45,7 @@
   },
   "peerDependencies": {
     "@openmrs/esm-api": "^3.0.0",
+    "@openmrs/esm-config": "^3.0.0",
     "@openmrs/esm-error-handling": "^3.0.0",
     "carbon-components": "^10.21.0",
     "carbon-icons": "^7.0.7",
@@ -64,7 +66,6 @@
     "@babel/preset-typescript": "^7.10.4",
     "@openmrs/esm-api": "^3.0.0",
     "@openmrs/esm-error-handling": "^3.0.0",
-    "@openmrs/react-root-decorator": "^3.3.1",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^9.5.0",
     "@types/carbon-components": "^10.15.0",
