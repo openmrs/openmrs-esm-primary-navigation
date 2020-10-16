@@ -37,16 +37,22 @@
     "url": "https://github.com/openmrs/openmrs-esm-primary-navigation/issues"
   },
   "dependencies": {
-    "carbon-components-react": "^7.21.0"
+    "carbon-components-react": "^7.21.0",
+    "kremling": "^2.0.4",
+    "single-spa-react": "^2.14.0",
+    "systemjs-webpack-interop": "^1.2.1"
   },
   "peerDependencies": {
     "@openmrs/esm-api": "^3.0.0",
     "@openmrs/esm-error-handling": "^3.0.0",
+    "carbon-components": "^10.21.0",
+    "carbon-icons": "^7.0.7",
     "i18next": "^19.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.7.0",
     "react-router-dom": "^5.2.0",
+    "rxjs": "^6.6.0",
     "single-spa": "^4.4.1"
   },
   "devDependencies": {
@@ -87,7 +93,6 @@
     "fork-ts-checker-webpack-plugin": "^4.1.6",
     "husky": "^3.1.0",
     "i18next": "^19.6.0",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
     "jest-cli": "^26.1.0",
     "kremling": "^2.0.4",
@@ -98,10 +103,7 @@
     "react-dom": "^16.13.1",
     "react-i18next": "^11.7.0",
     "react-router-dom": "^5.2.0",
-    "rxjs": "^6.6.0",
-    "single-spa-react": "^2.14.0",
     "style-loader": "^1.2.1",
-    "systemjs-webpack-interop": "^1.2.1",
     "typescript": "^4.0.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
