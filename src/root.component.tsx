@@ -1,5 +1,5 @@
 import React from "react";
-import openmrsRootDecorator from "@openmrs/react-root-decorator";
+import { openmrsRootDecorator } from "@openmrs/esm-context";
 import styles from "./root.styles.css";
 import Navbar from "./components/navbar.component";
 import { BrowserRouter, Redirect } from "react-router-dom";
