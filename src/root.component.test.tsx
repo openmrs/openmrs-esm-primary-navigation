@@ -1,28 +1,10 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Root } from "./root.component";
 import { of } from "rxjs";
-import { getCurrentUser, openmrsFetch } from "@openmrs/esm-api";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router";
-
-function renderWithRouter(
-  ui,
-  {
-    route = "/",
-    history = createMemoryHistory({ initialEntries: [route] }),
-    match = { params: {}, isExact: true, path: "", url: "" }
-  } = {}
-) {
-  return {
-    ...render(<Router history={history}>{ui}</Router>),
-    history,
-    match
-  };
-}
+import { getCurrentUser } from "@openmrs/esm-api";
+import Root from "./root.component";
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
-const mockOpenMrsFetch = openmrsFetch as jest.Mock;
 
 window["getOpenmrsSpaBase"] = jest.fn().mockImplementation(() => "/");
 
@@ -50,6 +32,7 @@ jest.mock("@openmrs/esm-api", () => ({
 
 describe(`<Root />`, () => {
   let wrapper;
+
   beforeEach(() => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
     wrapper = render(<Root />);

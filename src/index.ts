@@ -1,3 +1,4 @@
+import { getAsyncLifecycle } from "@openmrs/esm-react-utils";
 import { backendDependencies } from "./openmrs-backend-dependencies";
 
 const importTranslation = require.context(
@@ -15,7 +16,10 @@ declare global {
 
 function setupOpenMRS() {
   return {
-    lifecycle: () => import("./openmrs-esm-primary-navigation"),
+    lifecycle: getAsyncLifecycle(() => import("./root.component"), {
+      featureName: "primary navigation",
+      moduleName: "@openmrs/esm-primary-navigation-app"
+    }),
     activate: (location: Location) =>
       !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login")
   };

@@ -1,6 +1,6 @@
 import React from "react";
 import { openmrsFetch, refetchCurrentUser } from "@openmrs/esm-api";
-import { Button, Link, SwitcherItem } from "carbon-components-react";
+import { SwitcherItem } from "carbon-components-react";
 
 export interface LogoutProps {
   onLogout(): void;

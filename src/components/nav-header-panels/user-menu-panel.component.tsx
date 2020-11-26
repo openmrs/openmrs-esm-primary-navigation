@@ -1,11 +1,9 @@
+import React from "react";
 import {
   HeaderPanel,
   HeaderPanelProps,
-  Switcher,
-  SwitcherDivider,
-  SwitcherItem
+  Switcher
 } from "carbon-components-react";
-import React from "react";
 import { LoggedInUser } from "../../types";
 import Logout from "../logout.component";
 import UserMenu from "../usermenu.component";

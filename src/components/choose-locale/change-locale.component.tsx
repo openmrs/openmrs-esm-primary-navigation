@@ -1,6 +1,6 @@
-import { refetchCurrentUser } from "@openmrs/esm-api";
-import { Select, SelectItem, SelectItemGroup } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
+import { refetchCurrentUser } from "@openmrs/esm-api";
+import { Select, SelectItem } from "carbon-components-react";
 import { updateUserProperties } from "./change-locale.resource";
 
 interface ChangeLocaleProps {

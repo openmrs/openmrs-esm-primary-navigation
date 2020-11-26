@@ -1,5 +1,4 @@
 import React from "react";
-import { openmrsRootDecorator } from "@openmrs/esm-context";
 import styles from "./root.styles.css";
 import Navbar from "./components/navbar.component";
 import { BrowserRouter, Redirect } from "react-router-dom";
@@ -7,7 +6,7 @@ import { getCurrentUser } from "@openmrs/esm-api";
 import { createErrorHandler } from "@openmrs/esm-error-handling";
 import { LoggedInUser } from "./types";
 
-export function Root() {
+export default function Root() {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
   const [allowedLocales, setAllowedLocales] = React.useState();
   const logout = React.useCallback(() => setUser(false), []);
@@ -59,8 +58,3 @@ export function Root() {
     </BrowserRouter>
   );
 }
-
-export default openmrsRootDecorator({
-  featureName: "primary navigation",
-  moduleName: "@openmrs/esm-primary-navigation-app"
-})(Root);

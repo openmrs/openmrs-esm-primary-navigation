@@ -6,7 +6,6 @@ import {
   searchLocationsFhir
 } from "./change-location.resource";
 import { createErrorHandler } from "@openmrs/esm-error-handling";
-import { UserSession } from "../../types";
 import styles from "./change-location.styles.css";
 
 type ChangeLocationProps = {
