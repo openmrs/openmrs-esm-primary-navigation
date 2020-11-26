@@ -1,6 +1,6 @@
 {
   "name": "@openmrs/esm-primary-navigation-app",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Main navbar microfrontend for the OpenMRS SPA",
   "homepage": "https://github.com/openmrs/openmrs-esm-primary-navigation#readme",
   "license": "MPL-2.0",
