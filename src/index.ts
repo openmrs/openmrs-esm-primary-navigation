@@ -20,7 +20,7 @@ function setupOpenMRS() {
 
   const options = {
     featureName: "primary navigation",
-    moduleName,
+    moduleName
   };
 
   defineConfigSchema(moduleName, {});
@@ -28,7 +28,7 @@ function setupOpenMRS() {
   return {
     lifecycle: getAsyncLifecycle(() => import("./root.component"), options),
     activate: (location: Location) =>
-      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
+      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login")
   };
 }
 
