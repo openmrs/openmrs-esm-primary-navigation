@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Parcel from "single-spa-react/parcel";
+import { ExtensionSlot } from "@openmrs/esm-react-utils";
+import { createErrorHandler } from "@openmrs/esm-error-handling";
 import { getCurrentSession } from "../../root.resource";
 import {
   setSessionLocation,
-  searchLocationsFhir
+  searchLocationsFhir,
 } from "./change-location.resource";
-import { createErrorHandler } from "@openmrs/esm-error-handling";
 import styles from "./change-location.styles.css";
 
 type ChangeLocationProps = {
@@ -52,23 +52,19 @@ export function ChangeLocation(props: ChangeLocationProps) {
   return (
     <div
       className={styles.changeLocationContainer}
-      onClick={evt => evt.stopPropagation()}
+      onClick={(evt) => evt.stopPropagation()}
       role="button"
       tabIndex={-1}
     >
       {location && locationUuid && (
-        <Parcel
-          config={() =>
-            System.import("@openmrs/esm-login-app").then(
-              mod => mod.LocationPickerParcel
-            )
-          }
-          {...{
+        <ExtensionSlot
+          extensionSlotName="location-picker"
+          state={{
             loginLocations: location,
-            onChangeLocation: onChangeLocation,
+            onChangeLocation,
             hideWelcomeMessage: true,
             currentLocationUuid: locationUuid,
-            currentUser: currentUser
+            currentUser: currentUser,
           }}
         />
       )}

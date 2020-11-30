@@ -1,3 +1,4 @@
+import { defineConfigSchema } from "@openmrs/esm-config";
 import { getAsyncLifecycle } from "@openmrs/esm-react-utils";
 import { backendDependencies } from "./openmrs-backend-dependencies";
 
@@ -15,13 +16,19 @@ declare global {
 }
 
 function setupOpenMRS() {
+  const moduleName = "@openmrs/esm-primary-navigation-app";
+
+  const options = {
+    featureName: "primary navigation",
+    moduleName,
+  };
+
+  defineConfigSchema(moduleName, {});
+
   return {
-    lifecycle: getAsyncLifecycle(() => import("./root.component"), {
-      featureName: "primary navigation",
-      moduleName: "@openmrs/esm-primary-navigation-app"
-    }),
+    lifecycle: getAsyncLifecycle(() => import("./root.component"), options),
     activate: (location: Location) =>
-      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login")
+      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
   };
 }
 
