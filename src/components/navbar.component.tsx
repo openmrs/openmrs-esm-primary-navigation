@@ -1,5 +1,5 @@
 import React from "react";
-import { LoggedInUser } from "../types";
+import { navigate } from "@openmrs/esm-config";
 import { Location20, UserAvatar20 } from "@carbon/icons-react";
 import {
   HeaderContainer,
@@ -11,6 +11,10 @@ import {
 } from "carbon-components-react";
 import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
 import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
+import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
+import { LoggedInUser } from "../types";
+
+const HeaderLink: any = HeaderName;
 
 export interface NavbarProps {
   user: LoggedInUser;
@@ -61,13 +65,17 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               onClick={onClickSideNavExpand}
               isActive={isSideNavExpanded}
             />
-            <HeaderName prefix="">OpenMRS</HeaderName>
-
+            <HeaderLink
+              prefix=""
+              onClick={() => navigate({ to: "${openmrsSpaBase}/home" })}
+            >
+              OpenMRS
+            </HeaderLink>
             <HeaderGlobalBar>
               <HeaderGlobalAction
                 aria-label="Location"
                 aria-labelledby="Location Icon"
-                onClick={evt => togglePanel("location")}
+                onClick={() => togglePanel("location")}
                 isActive={isActivePanel("location")}
                 name="LocationIcon"
               >
@@ -78,11 +86,12 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
                 aria-labelledby="Users Avator Icon"
                 name="Users"
                 isActive={isActivePanel("userMenu")}
-                onClick={evt => togglePanel("userMenu")}
+                onClick={() => togglePanel("userMenu")}
               >
                 <UserAvatar20 />
               </HeaderGlobalAction>
             </HeaderGlobalBar>
+            <SideMenuPanel expanded={isSideNavExpanded} />
             <LocationChangePanel
               expanded={isActivePanel("location")}
               refreshLocation={hidePanel}
