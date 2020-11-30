@@ -1,5 +1,5 @@
 # openmrs-esm-primary-navigation
-[![Build Status](https://travis-ci.org/openmrs/openmrs-esm-primary-navigation.svg?branch=master)](https://travis-ci.org/openmrs/openmrs-esm-primary-navigation)
+[![Build Status](https://travis-ci.com/openmrs/openmrs-esm-primary-navigation.svg?branch=master)](https://travis-ci.com/openmrs/openmrs-esm-primary-navigation)
 
 An [OpenMRS Microfrontend](https://wiki.openmrs.org/display/projects/Frontend+-+SPA+and+Microfrontends).
 
