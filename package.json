@@ -15,7 +15,8 @@
     "prepublishOnly": "npm run build",
     "prettier": "prettier 'src/**/*' --write",
     "test": "jest --config jest.config.json",
-    "typescript": "tsc"
+    "typescript": "tsc",
+    "coverage": "npm test -- --coverage"
   },
   "browserslist": [
     "extends browserslist-config-openmrs"
