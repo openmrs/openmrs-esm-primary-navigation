@@ -62,12 +62,15 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
             <HeaderMenuButton
               aria-label="Open menu"
               isCollapsible
-              onClick={onClickSideNavExpand}
-              isActive={isSideNavExpanded}
+              onClick={() => togglePanel("sideMenu")}
+              isActive={isActivePanel("sideMenu")}
             />
             <HeaderLink
               prefix=""
-              onClick={() => navigate({ to: "${openmrsSpaBase}/home" })}
+              onClick={() => {
+                navigate({ to: "${openmrsSpaBase}/home" });
+                hidePanel();
+              }}
             >
               OpenMRS
             </HeaderLink>
@@ -91,7 +94,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
                 <UserAvatar20 />
               </HeaderGlobalAction>
             </HeaderGlobalBar>
-            <SideMenuPanel expanded={isSideNavExpanded} />
+            <SideMenuPanel expanded={isActivePanel("sideMenu")} />
             <LocationChangePanel
               expanded={isActivePanel("location")}
               refreshLocation={hidePanel}
