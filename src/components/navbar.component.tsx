@@ -13,6 +13,7 @@ import LocationChangePanel from "./nav-header-panels/location-change-panel.compo
 import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
 import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import { LoggedInUser } from "../types";
+import styles from "./navbar.scss";
 
 const HeaderLink: any = HeaderName;
 
@@ -55,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
   }, []);
 
   return (
-    <div ref={headerRef}>
+    <div ref={headerRef} className={styles.navbar}>
       <HeaderContainer
         render={({ isSideNavExpanded, onClickSideNavExpand }) => (
           <Header aria-label="OpenMRS">
