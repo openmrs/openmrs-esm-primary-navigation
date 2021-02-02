@@ -21,3 +21,7 @@
 .navbar :global(.bx--header) {
   background-color: $brand-01;
 }
+
+.navbar :global(.bx--header__action:hover) {
+  background-color: $brand-02;
+}
