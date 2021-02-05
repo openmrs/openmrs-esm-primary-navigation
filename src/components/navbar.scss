@@ -1,3 +1,5 @@
+@import "../root.scss";
+
 .topNav {
   display: flex;
   align-items: center;
@@ -14,4 +16,12 @@
 .logo {
   width: 55%;
   text-align: right;
+}
+
+.navbar :global(.bx--header) {
+  background-color: $brand-01;
+}
+
+.navbar :global(.bx--header__action:hover) {
+  background-color: $brand-02;
 }

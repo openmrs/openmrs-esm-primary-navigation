@@ -1,6 +1,6 @@
 import React from "react";
 import { navigate } from "@openmrs/esm-config";
-import { Location20, UserAvatar20 } from "@carbon/icons-react";
+import { Location20, UserAvatarFilledAlt20 } from "@carbon/icons-react";
 import {
   HeaderContainer,
   Header,
@@ -12,7 +12,9 @@ import {
 import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
 import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
 import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
+import Logo from "./logo.component";
 import { LoggedInUser } from "../types";
+import styles from "./navbar.scss";
 
 const HeaderLink: any = HeaderName;
 
@@ -55,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
   }, []);
 
   return (
-    <div ref={headerRef}>
+    <div ref={headerRef} className={styles.navbar}>
       <HeaderContainer
         render={({ isSideNavExpanded, onClickSideNavExpand }) => (
           <Header aria-label="OpenMRS">
@@ -72,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
                 hidePanel();
               }}
             >
-              OpenMRS
+              <Logo />
             </HeaderLink>
             <HeaderGlobalBar>
               <HeaderGlobalAction
@@ -86,12 +88,12 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               </HeaderGlobalAction>
               <HeaderGlobalAction
                 aria-label="Users"
-                aria-labelledby="Users Avator Icon"
+                aria-labelledby="Users Avatar Icon"
                 name="Users"
                 isActive={isActivePanel("userMenu")}
                 onClick={() => togglePanel("userMenu")}
               >
-                <UserAvatar20 />
+                <UserAvatarFilledAlt20 />
               </HeaderGlobalAction>
             </HeaderGlobalBar>
             <SideMenuPanel expanded={isActivePanel("sideMenu")} />
