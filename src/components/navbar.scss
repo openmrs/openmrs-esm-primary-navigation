@@ -33,7 +33,5 @@
 
 .navbar :global(.bx--header__action--active) {
   background-color: $brand-02;
-  border-right: $brand-02;
-  border-bottom: $brand-02;
-  border-left: $brand-02;
+  border-color: $brand-02;
 }
