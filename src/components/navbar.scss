@@ -20,8 +20,18 @@
 
 .navbar :global(.bx--header) {
   background-color: $brand-01;
+  border-bottom: $brand-02;
 }
 
 .navbar :global(.bx--header__action:hover) {
   background-color: $brand-02;
+}
+
+.navbar :global(.bx--header-panel) {
+  background-color: $brand-02;
+}
+
+.navbar :global(.bx--header__action--active) {
+  background-color: $brand-02;
+  border-color: $brand-02;
 }
