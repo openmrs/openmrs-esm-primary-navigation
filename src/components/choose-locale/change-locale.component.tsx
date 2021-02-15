@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "carbon-components-react/es/components/Select";
 import SelectItem from "carbon-components-react/es/components/SelectItem";
-import { refetchCurrentUser } from "@openmrs/esm-api";
+import { refetchCurrentUser } from "@openmrs/esm-framework";
 import { updateUserProperties } from "./change-locale.resource";
 
 interface ChangeLocaleProps {

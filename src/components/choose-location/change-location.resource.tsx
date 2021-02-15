@@ -1,4 +1,4 @@
-import { openmrsFetch, fhirBaseUrl } from "@openmrs/esm-api";
+import { openmrsFetch, fhirBaseUrl } from "@openmrs/esm-framework";
 
 export function searchLocationsFhir(
   location: string,

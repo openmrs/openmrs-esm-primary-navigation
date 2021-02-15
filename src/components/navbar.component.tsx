@@ -5,7 +5,7 @@ import LocationChangePanel from "./nav-header-panels/location-change-panel.compo
 import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
 import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import Logo from "./logo.component";
-import { navigate } from "@openmrs/esm-config";
+import { navigate } from "@openmrs/esm-framework";
 import {
   HeaderContainer,
   Header,
