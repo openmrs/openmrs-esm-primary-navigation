@@ -1,5 +1,6 @@
 import React from "react";
-import { SideNav, SideNavProps } from "carbon-components-react";
+import SideNav from "carbon-components-react/es/components/UIShell";
+import { SideNavProps } from "carbon-components-react";
 import { ExtensionSlot } from "@openmrs/esm-react-utils";
 import styles from "./side-menu-panel.component.scss";
 

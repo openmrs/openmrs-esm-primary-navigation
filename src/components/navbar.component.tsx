@@ -1,6 +1,10 @@
 import React from "react";
+import Location20 from "@carbon/icons-react/es/location/20";
+import UserAvatar20 from "@carbon/icons-react/es/user--avatar/20";
+import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
+import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
+import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import { navigate } from "@openmrs/esm-config";
-import { Location20, UserAvatar20 } from "@carbon/icons-react";
 import {
   HeaderContainer,
   Header,
@@ -8,10 +12,7 @@ import {
   HeaderName,
   HeaderGlobalBar,
   HeaderGlobalAction
-} from "carbon-components-react";
-import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
-import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
-import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
+} from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser } from "../types";
 
 const HeaderLink: any = HeaderName;
