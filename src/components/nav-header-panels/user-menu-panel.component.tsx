@@ -1,12 +1,12 @@
 import React from "react";
-import {
-  HeaderPanel,
-  HeaderPanelProps,
-  Switcher
-} from "carbon-components-react";
-import { LoggedInUser } from "../../types";
 import Logout from "../logout.component";
 import UserMenu from "../usermenu.component";
+import {
+  HeaderPanel,
+  Switcher
+} from "carbon-components-react/es/components/UIShell";
+import { HeaderPanelProps } from "carbon-components-react";
+import { LoggedInUser } from "../../types";
 
 interface UserMenuPanelProps extends HeaderPanelProps {
   user: LoggedInUser;

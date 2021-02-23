@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./root.styles.css";
 import Navbar from "./components/navbar.component";
 import { BrowserRouter, Redirect } from "react-router-dom";
-import { getCurrentUser } from "@openmrs/esm-api";
-import { createErrorHandler } from "@openmrs/esm-error-handling";
+import { getCurrentUser, createErrorHandler } from "@openmrs/esm-framework";
 import { LoggedInUser } from "./types";
 
 export default function Root() {

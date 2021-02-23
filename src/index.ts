@@ -1,5 +1,4 @@
-import { defineConfigSchema } from "@openmrs/esm-config";
-import { getAsyncLifecycle } from "@openmrs/esm-react-utils";
+import { defineConfigSchema, getAsyncLifecycle } from "@openmrs/esm-framework";
 import { backendDependencies } from "./openmrs-backend-dependencies";
 
 const importTranslation = require.context(

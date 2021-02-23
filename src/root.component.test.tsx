@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { of } from "rxjs";
-import { getCurrentUser } from "@openmrs/esm-api";
+import { getCurrentUser } from "@openmrs/esm-framework";
 import Root from "./root.component";
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
@@ -23,7 +23,7 @@ const mockUser = {
   }
 };
 
-jest.mock("@openmrs/esm-api", () => ({
+jest.mock("@openmrs/esm-framework", () => ({
   openmrsFetch: jest.fn().mockResolvedValue({}),
   getCurrentUser: jest
     .fn()

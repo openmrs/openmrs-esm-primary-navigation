@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./location.styles.css";
-import { openmrsFetch } from "@openmrs/esm-api";
+import { openmrsFetch } from "@openmrs/esm-framework";
 import { UserSession } from "../types";
 
 export interface LocationProps {

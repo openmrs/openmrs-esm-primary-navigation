@@ -11,6 +11,7 @@
     "serve": "webpack-dev-server",
     "debug": "npm run serve",
     "build": "webpack --mode production",
+    "analyze": "webpack --mode=production --env.analyze=true",
     "lint": "eslint src --ext tsx",
     "prepublishOnly": "npm run build",
     "prettier": "prettier 'src/**/*' --write",
@@ -40,23 +41,15 @@
     "url": "https://github.com/openmrs/openmrs-esm-primary-navigation/issues"
   },
   "dependencies": {
-    "carbon-components-react": "^7.21.0",
-    "kremling": "^2.0.4",
+    "carbon-components-react": "^7.25.0",
     "systemjs-webpack-interop": "^1.2.1"
   },
   "peerDependencies": {
-    "@openmrs/esm-api": "3.x",
-    "@openmrs/esm-config": "3.x",
-    "@openmrs/esm-error-handling": "3.x",
-    "@openmrs/esm-react-utils": "3.x",
+    "@openmrs/esm-framework": "3.x",
     "carbon-components": "^10.21.0",
     "carbon-icons": "^7.0.7",
-    "i18next": "^19.6.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-i18next": "^11.7.0",
-    "react-router-dom": "^5.2.0",
-    "rxjs": "^6.6.0"
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
@@ -65,10 +58,8 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@openmrs/esm-api": "^3.1.6",
-    "@openmrs/esm-config": "^3.1.6",
-    "@openmrs/esm-error-handling": "^3.1.6",
-    "@openmrs/esm-react-utils": "^3.1.6",
+    "@babel/runtime": "^7.12.13",
+    "@openmrs/esm-framework": "next",
     "@testing-library/dom": "^7.29.4",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^9.5.0",
@@ -101,9 +92,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
     "jest-cli": "^26.1.0",
-    "kremling": "^2.0.4",
     "node-sass": "^5.0.0",
-    "openmrs": "^3.1.6",
+    "openmrs": "next",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
@@ -115,6 +105,7 @@
     "style-loader": "^1.2.1",
     "typescript": "^4.0.3",
     "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }

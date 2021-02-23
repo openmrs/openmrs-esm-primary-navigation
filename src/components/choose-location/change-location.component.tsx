@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ExtensionSlot } from "@openmrs/esm-react-utils";
-import { createErrorHandler } from "@openmrs/esm-error-handling";
+import { ExtensionSlot, createErrorHandler } from "@openmrs/esm-framework";
 import { getCurrentSession } from "../../root.resource";
 import {
   setSessionLocation,
