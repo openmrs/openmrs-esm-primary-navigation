@@ -31,15 +31,6 @@ export default function Root() {
     return () => sub.unsubscribe();
   }, []);
 
-  const [session, setSession] = React.useState<UserSession>(null);
-
-  React.useEffect(() => {
-    const abortController = new AbortController();
-    openmrsFetch("/ws/rest/v1/appui/session", {
-      signal: abortController.signal
-    }).then(({ data }) => setSession(data));
-  }, []);
-
   return (
     <BrowserRouter>
       <div className={styles.primaryNavContainer}>
@@ -62,7 +53,6 @@ export default function Root() {
             <Navbar
               allowedLocales={allowedLocales}
               user={user}
-              session={session}
               onLogout={logout}
             />
           )

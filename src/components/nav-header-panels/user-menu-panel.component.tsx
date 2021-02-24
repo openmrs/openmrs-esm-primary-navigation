@@ -62,7 +62,7 @@ const UserMenuPanel: React.FC<UserMenuPanelProps> = ({
         <Location20 />
         <div>
           {session?.sessionLocation?.display}
-          <Button onClick={changeLocation}>{t("change", "Change")}</Button>
+          <Button onClick={changeLocation}>{t("Change", "Change")}</Button>
         </div>
       </Switcher>
       <SwitcherDivider className={styles.divider} />

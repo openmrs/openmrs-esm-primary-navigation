@@ -44,8 +44,6 @@ describe(`<Root />`, () => {
     expect(
       screen.getByRole("banner", { name: /OpenMRS/i })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /Location/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Change/i })).toBeInTheDocument();
   });
 });

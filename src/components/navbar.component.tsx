@@ -16,20 +16,16 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../types";
 import styles from "./navbar.scss";
+import { getCurrentSession } from "../root.resource";
+
 const HeaderLink: any = HeaderName;
 export interface NavbarProps {
   user: LoggedInUser;
   allowedLocales: Array<string>;
   onLogout(): void;
-  session: UserSession;
 }
 
-const Navbar: React.FC<NavbarProps> = ({
-  user,
-  onLogout,
-  allowedLocales,
-  session
-}) => {
+const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
   const headerRef = React.useRef(null);
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(
     null
@@ -37,6 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const isActivePanel = (panelName: string) => {
     return activeHeaderPanel == panelName;
   };
+  const [session, setSession] = React.useState<UserSession>(null);
 
   const togglePanel = (panelName: string) => {
     panelName === activeHeaderPanel
@@ -59,6 +56,12 @@ const Navbar: React.FC<NavbarProps> = ({
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
+  }, []);
+
+  React.useEffect(() => {
+    const abortController = new AbortController();
+    getCurrentSession(abortController).then(({ data }) => setSession(data));
+    return () => abortController.abort();
   }, []);
 
   return (

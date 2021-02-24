@@ -27,7 +27,6 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
   return (
     <Button
       className={styles.logout}
-      isSelected
       onClick={() => setIsLoggingOut(true)}
       aria-labelledby="Logout"
       role="button"
