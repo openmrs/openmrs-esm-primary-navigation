@@ -1,0 +1,54 @@
+@import "../../root.scss";
+
+.switcher {
+  display: flex;
+  flex-direction: row;
+  width: 16rem;
+  justify-content: flex-start;
+  color: $field-01;
+  align-items: center;
+  @extend .productiveHeading01;
+  height: 3rem;
+  cursor: pointer;
+}
+
+.switcher > svg {
+  margin: 0rem 0.75rem;
+  fill: $field-01;
+}
+
+.switcher button {
+  @extend .productiveHeading01;
+  width: 100%;
+  background-color: $brand-02;
+}
+
+.switcher button:hover {
+  color: $field-01;
+  background-color: $brand-01;
+}
+
+.switcher div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  @extend .bodyLong01;
+}
+
+.switcher div button {
+  color: $inverse-link;
+  margin-left: 0.5rem;
+  width: 5rem;
+}
+
+.switcher div button:hover {
+  background-color: $brand-01;
+  color: $inverse-link;
+}
+
+.divider {
+  background-color: $ui-background;
+  width: 16rem;
+  margin: 0.5rem 0rem;
+}

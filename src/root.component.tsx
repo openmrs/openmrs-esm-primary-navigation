@@ -2,8 +2,12 @@ import React from "react";
 import styles from "./root.styles.css";
 import Navbar from "./components/navbar.component";
 import { BrowserRouter, Redirect } from "react-router-dom";
-import { getCurrentUser, createErrorHandler } from "@openmrs/esm-framework";
-import { LoggedInUser } from "./types";
+import {
+  getCurrentUser,
+  createErrorHandler,
+  openmrsFetch
+} from "@openmrs/esm-framework";
+import { LoggedInUser, UserSession } from "./types";
 
 export default function Root() {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
@@ -25,6 +29,15 @@ export default function Root() {
       }
     );
     return () => sub.unsubscribe();
+  }, []);
+
+  const [session, setSession] = React.useState<UserSession>(null);
+
+  React.useEffect(() => {
+    const abortController = new AbortController();
+    openmrsFetch("/ws/rest/v1/appui/session", {
+      signal: abortController.signal
+    }).then(({ data }) => setSession(data));
   }, []);
 
   return (
@@ -49,6 +62,7 @@ export default function Root() {
             <Navbar
               allowedLocales={allowedLocales}
               user={user}
+              session={session}
               onLogout={logout}
             />
           )
