@@ -1,4 +1,5 @@
 import React from "react";
+import { Add20 } from "@carbon/icons-react";
 import Location20 from "@carbon/icons-react/es/location/20";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
 import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
@@ -78,6 +79,19 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               <Logo />
             </HeaderLink>
             <HeaderGlobalBar>
+              <HeaderGlobalAction
+                aria-label="Add"
+                aria-labelledby="Add Icon"
+                onClick={() => {
+                  navigate({
+                    to:
+                      "https://openmrs-spa.org/openmrs/spa/patient-registration"
+                  });
+                }}
+                name="AddIcon"
+              >
+                <Add20 />
+              </HeaderGlobalAction>
               <HeaderGlobalAction
                 aria-label="Location"
                 aria-labelledby="Location Icon"
