@@ -13,10 +13,8 @@ import {
 import { LoggedInUser, UserSession } from "../../types";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
 import styles from "./user-menu-panel.component.scss";
-import Location20 from "@carbon/icons-react/es/location/20";
-import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-const openmrsSpaBase = window["getOpenmrsSpaBase"]();
+import { ExtensionSlot } from "@openmrs/esm-framework";
 
 interface UserMenuPanelProps extends HeaderPanelProps {
   user: LoggedInUser;
@@ -33,16 +31,6 @@ const UserMenuPanel: React.FC<UserMenuPanelProps> = ({
   session
 }) => {
   const { t } = useTranslation();
-  const history = useHistory();
-  const changeLocation = () => {
-    history.push(`${openmrsSpaBase}login/location`, {
-      referrer: window.location.pathname.slice(
-        window.location.pathname.indexOf(openmrsSpaBase) +
-          openmrsSpaBase.length -
-          1
-      )
-    });
-  };
   return (
     <HeaderPanel
       expanded={expanded}
@@ -59,11 +47,13 @@ const UserMenuPanel: React.FC<UserMenuPanelProps> = ({
         <p>{user.person.display}</p>
       </Switcher>
       <Switcher className={styles.switcher} aria-label="Switcher Container">
-        <Location20 />
-        <div>
-          {session?.sessionLocation?.display}
-          <Button onClick={changeLocation}>{t("Change", "Change")}</Button>
-        </div>
+        <ExtensionSlot
+          extensionSlotName="location-changer"
+          state={{
+            referer: window.location.pathname,
+            currentLocation: session?.sessionLocation.display
+          }}
+        />
       </Switcher>
       <SwitcherDivider className={styles.divider} />
       <Switcher className={styles.switcher} aria-label="Switcher Container">

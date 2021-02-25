@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { of } from "rxjs";
-import { getCurrentUser } from "@openmrs/esm-framework";
+import { getCurrentUser, ExtensionSlot } from "@openmrs/esm-framework";
 import Root from "./root.component";
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
@@ -28,7 +28,8 @@ jest.mock("@openmrs/esm-framework", () => ({
   openmrsFetch: jest.fn().mockResolvedValue({}),
   getCurrentUser: jest
     .fn()
-    .mockImplementation(() => ({ subscribe: () => {}, unsubscribe: () => {} }))
+    .mockImplementation(() => ({ subscribe: () => {}, unsubscribe: () => {} })),
+  ExtensionSlot: jest.fn().mockImplementation(({ children }) => <>{children}</>)
 }));
 
 describe(`<Root />`, () => {
@@ -44,6 +45,6 @@ describe(`<Root />`, () => {
     expect(
       screen.getByRole("banner", { name: /OpenMRS/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Change/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Logout/i })).toBeInTheDocument();
   });
 });

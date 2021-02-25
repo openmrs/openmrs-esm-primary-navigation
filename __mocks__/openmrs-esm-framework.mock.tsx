@@ -19,4 +19,8 @@ export const openmrsComponentDecorator = jest
   .fn()
   .mockImplementation(() => component => component);
 
-export const ExtensionSlot = () => null;
+export const Extension = jest.fn().mockImplementation((props: any) => {
+  return <slot />;
+});
+
+export const ExtensionSlot = ({ children }) => <>{children}</>;
