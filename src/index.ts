@@ -1,4 +1,8 @@
-import { defineConfigSchema, getAsyncLifecycle } from "@openmrs/esm-framework";
+import {
+  defineConfigSchema,
+  getAsyncLifecycle,
+  attach
+} from "@openmrs/esm-framework";
 import { backendDependencies } from "./openmrs-backend-dependencies";
 
 const importTranslation = require.context(
@@ -27,8 +31,16 @@ function setupOpenMRS() {
   return {
     lifecycle: getAsyncLifecycle(() => import("./root.component"), options),
     activate: (location: Location) =>
-      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login")
+      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
+
+    extensions: [
+      {
+        appName: "@openmrs/esm-patient-registration",
+        name: "add-patient-link",
+        load: getAsyncLifecycle(() => import("./add-patient-link"), options)
+      }
+    ]
   };
 }
-
+attach("add-patient-slot", "add-patient-link");
 export { backendDependencies, importTranslation, setupOpenMRS };
