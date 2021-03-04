@@ -1,31 +1,28 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen
+} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { of } from "rxjs";
-import { getCurrentUser, ExtensionSlot } from "@openmrs/esm-framework";
+import {
+  getCurrentUser,
+  openmrsObservableFetch,
+  createErrorHandler
+} from "@openmrs/esm-framework";
 import Root from "./root.component";
+import { mockUser } from "../__mocks__/mock-user";
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
-
-window["getOpenmrsSpaBase"] = jest.fn().mockImplementation(() => "/");
-
-const mockUser = {
-  authenticated: true,
-  user: {
-    uuid: "uuid",
-    display: "admin",
-    person: { uuid: "uuid", display: "Test User" },
-    privileges: [],
-    roles: [{ uuid: "uuid", display: "System Developer" }],
-    username: "testuser",
-    userProperties: {
-      defaultLocale: "fr"
-    }
-  }
-};
+const mockOpenmrsObservableFetch = openmrsObservableFetch as jest.Mock;
+const mockCreateErrorHandler = createErrorHandler as jest.Mock;
 
 jest.mock("@openmrs/esm-framework", () => ({
-  ExtensionSlot: () => null,
   openmrsFetch: jest.fn().mockResolvedValue({}),
+  createErrorHandler: jest.fn(),
+  openmrsObservableFetch: jest.fn(),
   getCurrentUser: jest
     .fn()
     .mockImplementation(() => ({ subscribe: () => {}, unsubscribe: () => {} })),
@@ -33,11 +30,19 @@ jest.mock("@openmrs/esm-framework", () => ({
 }));
 
 describe(`<Root />`, () => {
-  let wrapper;
+  let wrapper: RenderResult;
 
   beforeEach(() => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
+    mockOpenmrsObservableFetch.mockImplementation(() =>
+      of({ data: { sessionLocation: { display: "Unknown Location" } } })
+    );
     wrapper = render(<Root />);
+  });
+
+  afterEach(() => {
+    mockGetCurrentUser.mockReset();
+    mockOpenmrsObservableFetch.mockReset();
   });
 
   it("should display navbar with title", async () => {
@@ -45,6 +50,11 @@ describe(`<Root />`, () => {
     expect(
       screen.getByRole("banner", { name: /OpenMRS/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Logout/i })).toBeInTheDocument();
+  });
+
+  it("should open user-menu panel", async () => {
+    const userButton = await screen.findByRole("button", { name: /Users/i });
+    fireEvent.click(userButton);
+    expect(screen.getByLabelText(/Location/i)).toBeInTheDocument();
   });
 });
