@@ -9,7 +9,7 @@ interface ChangeLocaleProps {
   user: any;
 }
 
-export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
+const ChangeLocale: React.FC<ChangeLocaleProps> = ({
   allowedLocales,
   user
 }) => {
@@ -47,3 +47,5 @@ export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
     </div>
   );
 };
+
+export default ChangeLocale;

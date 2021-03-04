@@ -1,3 +1,5 @@
+import { LoggedInUser } from "../src/types";
+
 export const mockUser = {
   authenticated: true,
   user: {
@@ -10,5 +12,12 @@ export const mockUser = {
     userProperties: {
       defaultLocale: "fr"
     }
+  }
+};
+
+export const mockLoggedInUser: LoggedInUser = {
+  username: "Dr Healther Morgan",
+  person: {
+    display: "Dr Healther Morgan"
   }
 };

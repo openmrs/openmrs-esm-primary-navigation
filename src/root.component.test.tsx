@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen
-} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { of } from "rxjs";
 import {
   getCurrentUser,
@@ -30,14 +24,12 @@ jest.mock("@openmrs/esm-framework", () => ({
 }));
 
 describe(`<Root />`, () => {
-  let wrapper: RenderResult;
-
   beforeEach(() => {
     mockGetCurrentUser.mockImplementation(() => of(mockUser));
     mockOpenmrsObservableFetch.mockImplementation(() =>
       of({ data: { sessionLocation: { display: "Unknown Location" } } })
     );
-    wrapper = render(<Root />);
+    render(<Root />);
   });
 
   afterEach(() => {

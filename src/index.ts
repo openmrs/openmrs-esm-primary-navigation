@@ -28,13 +28,21 @@ function setupOpenMRS() {
       !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
     extensions: [
       {
-        id: "user-panel-switcher",
+        id: "default-user-panel-switcher",
         slot: "user-panel-switcher",
         load: getAsyncLifecycle(
           () =>
             import(
               "./components/user-panel-switcher-item/user-panel-switcher.component"
             ),
+          options
+        )
+      },
+      {
+        id: "change-locale",
+        slot: "user-panel-switcher",
+        load: getAsyncLifecycle(
+          () => import("./components/choose-locale/change-locale.component"),
           options
         )
       }

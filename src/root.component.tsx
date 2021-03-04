@@ -30,11 +30,10 @@ export default function Root() {
       setUserSession(data)
     );
     return () => {
-      return sub ? sub.unsubscribe() : sub1.unsubscribe();
+      if (sub) return sub.unsubscribe();
+      if (sub1) return sub1.unsubscribe();
     };
   }, []);
-
-  React.useEffect(() => {}, []);
 
   return (
     <BrowserRouter>
