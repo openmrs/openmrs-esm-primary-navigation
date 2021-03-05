@@ -1,13 +1,19 @@
 import React from "react";
 import { navigate } from "@openmrs/esm-config";
-import { Location20, UserAvatarFilledAlt20 } from "@carbon/icons-react";
+import {
+  UserAvatarFilledAlt20,
+  Search20,
+  Add20,
+  Switcher20
+} from "@carbon/icons-react";
 import {
   HeaderContainer,
   Header,
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction
+  HeaderGlobalAction,
+  Search
 } from "carbon-components-react";
 import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
 import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
@@ -15,6 +21,8 @@ import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import Logo from "./logo.component";
 import { LoggedInUser } from "../types";
 import styles from "./navbar.scss";
+import PatientSearch from "../components/patient-search/patient-search.component";
+import { SearchPatient } from "../components/patient-search/patient-search";
 
 const HeaderLink: any = HeaderName;
 
@@ -29,6 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(
     null
   );
+
   const isActivePanel = (panelName: string) => {
     return activeHeaderPanel == panelName;
   };
@@ -56,6 +65,43 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
     };
   }, []);
 
+  let [searchBarIsVisible, setSearchBarIsVisible] = React.useState<any>(false);
+
+  let [closeSearchBar, setCloseSearchBar] = React.useState<any>(false);
+
+  let setSearchBar = () => {
+    setSearchBarIsVisible((searchBarIsVisible = true));
+    if (searchBarIsVisible === true) {
+      document
+        .getElementById("searchBar")
+        .classList.add(styles.searchOverlayOn);
+
+      document.getElementById("searchIcon").classList.add(styles.search);
+    } else {
+      document
+        .getElementById("searchBar")
+        .classList.add(styles.searchOverlayOn);
+
+      document
+        .getElementById("searchIcon")
+        .classList.add(styles.searchIconOverlayed.display.none);
+    }
+  };
+
+  let closeSerachBarRef = React.useRef(null);
+
+  let handleSearcbBarClose = e => {
+    e.preventDefault();
+    // eslint-disable-next-line no-console
+    setCloseSearchBar((closeSearchBar = true));
+    setSearchBarIsVisible((searchBarIsVisible = false));
+  };
+
+  let closeTheSearchBar = () => {
+    setCloseSearchBar((closeSearchBar = true));
+    setSearchBarIsVisible((searchBarIsVisible = false));
+  };
+
   return (
     <div ref={headerRef} className={styles.navbar}>
       <HeaderContainer
@@ -77,14 +123,28 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               <Logo />
             </HeaderLink>
             <HeaderGlobalBar>
+              <HeaderGlobalAction className={styles.search} id="searchBar">
+                <Search
+                  placeHolderText="Search for Patient name or Id"
+                  size="lg"
+                  onBlur={handleSearcbBarClose}
+                />
+              </HeaderGlobalAction>
               <HeaderGlobalAction
-                aria-label="Location"
-                aria-labelledby="Location Icon"
-                onClick={() => togglePanel("location")}
-                isActive={isActivePanel("location")}
-                name="LocationIcon"
+                id="searchIcon"
+                aria-label="Patient Search"
+                aria-labelledby="Search Avatar Icon"
+                name="Searchpatient"
+                onClick={setSearchBar}
               >
-                <Location20 />
+                <Search20 />
+              </HeaderGlobalAction>
+              <HeaderGlobalAction
+                aria-label="Create New patient"
+                aria-labelledby="Add Avatar Icon"
+                name="Create New patient"
+              >
+                <Add20 />
               </HeaderGlobalAction>
               <HeaderGlobalAction
                 aria-label="Users"
@@ -94,6 +154,15 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
                 onClick={() => togglePanel("userMenu")}
               >
                 <UserAvatarFilledAlt20 />
+              </HeaderGlobalAction>
+              <HeaderGlobalAction
+                aria-label="Switcher"
+                aria-labelledby="Switcher Avatar Icon"
+                onClick={() => togglePanel("switcher")}
+                isActive={isActivePanel("switcher")}
+                name="Switcher"
+              >
+                <Switcher20 />
               </HeaderGlobalAction>
             </HeaderGlobalBar>
             <SideMenuPanel expanded={isActivePanel("sideMenu")} />

@@ -23,7 +23,7 @@ const UserMenuPanel: React.FC<UserMenuPanelProps> = ({
   return (
     <HeaderPanel
       expanded={expanded}
-      aria-label="Location"
+      aria-label="Location766"
       aria-labelledby="Location Icon"
     >
       <UserMenu

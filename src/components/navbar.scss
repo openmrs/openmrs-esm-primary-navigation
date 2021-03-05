@@ -25,3 +25,25 @@
 .navbar :global(.bx--header__action:hover) {
   background-color: $brand-02;
 }
+
+.search {
+  width: 60%;
+  background-color: $brand-01;
+  display: none;
+}
+
+.searchOverlayOn {
+  bottom: 0;
+  left: 100%;
+  right: -10;
+  overflow: hidden;
+  transition: width 4s;
+  transition-timing-function: ease-in-out;
+  width: 60%;
+  background-color: $brand-01;
+  display: block;
+}
+
+.searchIconOverlayed {
+  display: none;
+}
