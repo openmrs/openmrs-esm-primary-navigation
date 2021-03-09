@@ -25,6 +25,7 @@ const mockUser = {
 
 jest.mock("@openmrs/esm-framework", () => ({
   ExtensionSlot: () => null,
+  Extension: () => null,
   openmrsFetch: jest.fn().mockResolvedValue({}),
   getCurrentUser: jest
     .fn()
