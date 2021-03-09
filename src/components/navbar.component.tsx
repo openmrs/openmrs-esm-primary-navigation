@@ -16,9 +16,7 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser } from "../types";
 import styles from "./navbar.scss";
-
 const HeaderLink: any = HeaderName;
-
 export interface NavbarProps {
   user: LoggedInUser;
   allowedLocales: Array<string>;
@@ -78,6 +76,15 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               <Logo />
             </HeaderLink>
             <HeaderGlobalBar>
+              <ExtensionSlot extensionSlotName="add-patient-slot">
+                <HeaderGlobalAction
+                  aria-label="Add"
+                  aria-labelledby="Add Patient"
+                  name="AddPatientIcon"
+                >
+                  <Extension />
+                </HeaderGlobalAction>
+              </ExtensionSlot>
               <HeaderGlobalAction
                 aria-label="Location"
                 aria-labelledby="Location Icon"
