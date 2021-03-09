@@ -31,16 +31,7 @@ function setupOpenMRS() {
   return {
     lifecycle: getAsyncLifecycle(() => import("./root.component"), options),
     activate: (location: Location) =>
-      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login"),
-
-    extensions: [
-      {
-        appName: "@openmrs/esm-patient-registration",
-        name: "add-patient-link",
-        load: getAsyncLifecycle(() => import("./add-patient-link"), options)
-      }
-    ]
+      !location.pathname.startsWith(window.getOpenmrsSpaBase() + "login")
   };
 }
-attach("add-patient-slot", "add-patient-link");
 export { backendDependencies, importTranslation, setupOpenMRS };
