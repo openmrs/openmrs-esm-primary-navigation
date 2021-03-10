@@ -5,7 +5,9 @@ import LocationChangePanel from "./nav-header-panels/location-change-panel.compo
 import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
 import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import Logo from "./logo.component";
-import { navigate } from "@openmrs/esm-framework";
+
+import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
+
 import {
   HeaderContainer,
   Header,
@@ -16,9 +18,7 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser } from "../types";
 import styles from "./navbar.scss";
-
 const HeaderLink: any = HeaderName;
-
 export interface NavbarProps {
   user: LoggedInUser;
   allowedLocales: Array<string>;
@@ -78,6 +78,8 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               <Logo />
             </HeaderLink>
             <HeaderGlobalBar>
+              <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
+
               <HeaderGlobalAction
                 aria-label="Location"
                 aria-labelledby="Location Icon"
