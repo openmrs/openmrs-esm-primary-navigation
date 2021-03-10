@@ -1,11 +1,7 @@
 import React from "react";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
-import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
-import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
-import Logo from "./logo.component";
-
+import Logo from "./logo/logo.component";
 import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
-
 import {
   HeaderContainer,
   Header,
@@ -16,7 +12,8 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../types";
 import styles from "./navbar.scss";
-import { getCurrentSession } from "../root.resource";
+import SideMenuPanel from "./navbar-header-panels/side-menu-panel.component";
+import UserMenuPanel from "./navbar-header-panels/user-menu-panel.component";
 
 const HeaderLink: any = HeaderName;
 export interface NavbarProps {
@@ -56,12 +53,6 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, []);
-
-  React.useEffect(() => {
-    const abortController = new AbortController();
-    getCurrentSession(abortController).then(({ data }) => setSession(data));
-    return () => abortController.abort();
   }, []);
 
   return (
