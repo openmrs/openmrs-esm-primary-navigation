@@ -6,7 +6,7 @@ import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
 import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import Logo from "./logo.component";
 
-import { navigate, ExtensionSlot, Extension } from "@openmrs/esm-framework";
+import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
 
 import {
   HeaderContainer,
@@ -78,22 +78,8 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               <Logo />
             </HeaderLink>
             <HeaderGlobalBar>
-              <ExtensionSlot extensionSlotName="add-patient-slot">
-                <HeaderGlobalAction
-                  aria-label="Add"
-                  aria-labelledby="Add Patient"
-                  name="AddPatientIcon"
-                >
-                  <Extension />
-                </HeaderGlobalAction>
-              </ExtensionSlot>
-              <HeaderGlobalAction
-                aria-label="Add"
-                aria-labelledby="Add Patient"
-                name="AddPatientIcon"
-              >
-                <ExtensionSlot extensionSlotName="add-patient-slot" />
-              </HeaderGlobalAction>
+              <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
+
               <HeaderGlobalAction
                 aria-label="Location"
                 aria-labelledby="Location Icon"
