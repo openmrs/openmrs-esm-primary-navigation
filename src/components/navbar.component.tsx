@@ -1,13 +1,7 @@
 import React from "react";
-import Location20 from "@carbon/icons-react/es/location/20";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
-import LocationChangePanel from "./nav-header-panels/location-change-panel.component";
-import UserMenuPanel from "./nav-header-panels/user-menu-panel.component";
-import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
-import Logo from "./logo.component";
-
+import Logo from "./logo/logo.component";
 import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
-
 import {
   HeaderContainer,
   Header,
@@ -16,8 +10,11 @@ import {
   HeaderGlobalBar,
   HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
-import { LoggedInUser } from "../types";
+import { LoggedInUser, UserSession } from "../types";
 import styles from "./navbar.scss";
+import SideMenuPanel from "./navbar-header-panels/side-menu-panel.component";
+import UserMenuPanel from "./navbar-header-panels/user-menu-panel.component";
+
 const HeaderLink: any = HeaderName;
 export interface NavbarProps {
   user: LoggedInUser;
@@ -33,6 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
   const isActivePanel = (panelName: string) => {
     return activeHeaderPanel == panelName;
   };
+  const [session, setSession] = React.useState<UserSession>(null);
 
   const togglePanel = (panelName: string) => {
     panelName === activeHeaderPanel
@@ -81,15 +79,6 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
 
               <HeaderGlobalAction
-                aria-label="Location"
-                aria-labelledby="Location Icon"
-                onClick={() => togglePanel("location")}
-                isActive={isActivePanel("location")}
-                name="LocationIcon"
-              >
-                <Location20 />
-              </HeaderGlobalAction>
-              <HeaderGlobalAction
                 aria-label="Users"
                 aria-labelledby="Users Avatar Icon"
                 name="Users"
@@ -100,12 +89,9 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
               </HeaderGlobalAction>
             </HeaderGlobalBar>
             <SideMenuPanel expanded={isActivePanel("sideMenu")} />
-            <LocationChangePanel
-              expanded={isActivePanel("location")}
-              refreshLocation={hidePanel}
-            />
             <UserMenuPanel
               user={user}
+              session={session}
               expanded={isActivePanel("userMenu")}
               allowedLocales={allowedLocales}
               onLogout={onLogout}

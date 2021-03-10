@@ -1,12 +1,15 @@
 import React from "react";
 import { openmrsFetch, refetchCurrentUser } from "@openmrs/esm-framework";
-import { SwitcherItem } from "carbon-components-react/es/components/UIShell";
+import styles from "./logout.component.scss";
+import Button from "carbon-components-react/es/components/Button";
+import { useTranslation } from "react-i18next";
 
 export interface LogoutProps {
   onLogout(): void;
 }
 
 const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
+  const { t } = useTranslation();
   const [isLoggingOut, setIsLoggingOut] = React.useState(false);
 
   React.useEffect(() => {
@@ -22,14 +25,14 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
   }, [isLoggingOut, onLogout]);
 
   return (
-    <SwitcherItem
-      isSelected
+    <Button
+      className={styles.logout}
       onClick={() => setIsLoggingOut(true)}
       aria-labelledby="Logout"
       role="button"
     >
-      Logout
-    </SwitcherItem>
+      {t("Logout", "Logout")}
+    </Button>
   );
 };
 
