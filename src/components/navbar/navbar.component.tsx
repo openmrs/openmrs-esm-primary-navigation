@@ -1,9 +1,9 @@
 import React from "react";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
-import { Switcher20 } from "@carbon/icons-react";
+import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
-import DropdownMenuPanel from "../navbar-header-panels/dropdown-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
+import SourceFiles from "../urls/sourceFiles";
 import Logo from "../logo/logo.component";
 import { navigate } from "@openmrs/esm-framework";
 import {
@@ -107,36 +107,35 @@ const Navbar: React.FC<NavbarProps> = ({
                   onClick={onClickSideNavExpand}
                   isActive={isSideNavExpanded}
                 >
-                  <Switcher20 />
+                  <AppSwitcher20 />
                 </HeaderGlobalAction>
               </HeaderGlobalBar>
               <HeaderPanel aria-label="Header Panel" expanded>
                 <Switcher aria-label="Switcher Container">
-                  <SwitcherItem aria-label="Clinical Dashboard" href="#">
+                  <SwitcherItem
+                    aria-label="Clinical Dashboard"
+                    href={SourceFiles.clinical}
+                  >
                     Clinical Dashboard
                   </SwitcherItem>
                   <SwitcherDivider />
                   <SwitcherItem
-                    href="http://localhost:8080/openmrs/spa/patient-registration"
+                    href={SourceFiles.patients}
                     aria-label="Patients"
                   >
                     Patients
                   </SwitcherItem>
                   <SwitcherItem
-                    href="http://localhost:8080/openmrs/appointmentschedulingui/home.page"
+                    href={SourceFiles.schedule}
                     aria-label="Schedule"
                   >
                     Schedule
                   </SwitcherItem>
-                  <SwitcherItem
-                    href="http://localhost:8080/openmrs/reportingui/reportsapp/home.page"
-                    aria-label="Reports"
-                  >
+                  <SwitcherItem href={SourceFiles.reports} aria-label="Reports">
                     Reports
                   </SwitcherItem>
                 </Switcher>
               </HeaderPanel>
-              {/* <DropdownMenuPanel /> */}
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               <UserMenuPanel
                 user={user}
