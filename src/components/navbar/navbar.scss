@@ -1,4 +1,4 @@
-@import "../root.scss";
+@import "../../root.scss";
 
 .topNav {
   display: flex;
@@ -17,7 +17,6 @@
   width: 55%;
   text-align: right;
 }
-
 .navbar :global(.bx--header) {
   background-color: $brand-01;
 }

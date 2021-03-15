@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { refetchCurrentUser } from "@openmrs/esm-api";
-import { Select, SelectItem } from "carbon-components-react";
+import Select from "carbon-components-react/es/components/Select";
+import SelectItem from "carbon-components-react/es/components/SelectItem";
+import { refetchCurrentUser } from "@openmrs/esm-framework";
 import { updateUserProperties } from "./change-locale.resource";
 
 interface ChangeLocaleProps {
@@ -8,7 +9,7 @@ interface ChangeLocaleProps {
   user: any;
 }
 
-export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
+const ChangeLocale: React.FC<ChangeLocaleProps> = ({
   allowedLocales,
   user
 }) => {
@@ -46,3 +47,5 @@ export const ChangeLocale: React.FC<ChangeLocaleProps> = ({
     </div>
   );
 };
+
+export default ChangeLocale;

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen, wait } from "@testing-library/react";
-import { ChangeLocale } from "./change-locale.component";
+import ChangeLocale from "./change-locale.component";
 import * as backendController from "./change-locale.resource";
 
 const allowedLocales = ["en", "fr", "it", "pt"];
