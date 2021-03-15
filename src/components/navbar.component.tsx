@@ -1,11 +1,9 @@
 import React from "react";
 import { navigate } from "@openmrs/esm-config";
-import {
-  UserAvatarFilledAlt20,
-  Search20,
-  Add20,
-  Switcher20
-} from "@carbon/icons-react";
+import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--favorite--alt--filled/20";
+import Search20 from "@carbon/icons-react/lib/search/20";
+import Add20 from "@carbon/icons-react/lib/add/20";
+import Switcher20 from "@carbon/icons-react/lib/switcher/20";
 import {
   HeaderContainer,
   Header,
@@ -21,8 +19,6 @@ import SideMenuPanel from "./nav-header-panels/side-menu-panel.component";
 import Logo from "./logo.component";
 import { LoggedInUser } from "../types";
 import styles from "./navbar.scss";
-import PatientSearch from "../components/patient-search/patient-search.component";
-import { SearchPatient } from "../components/patient-search/patient-search";
 
 const HeaderLink: any = HeaderName;
 
@@ -69,7 +65,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales }) => {
 
   let [closeSearchBar, setCloseSearchBar] = React.useState<any>(false);
 
-  let setSearchBar = () => {
+  const setSearchBar = () => {
     setSearchBarIsVisible((searchBarIsVisible = true));
     if (searchBarIsVisible === true) {
       document
