@@ -3,7 +3,7 @@ import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
-import { navigate } from "@openmrs/esm-framework";
+import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
 import {
   HeaderContainer,
   Header,
@@ -84,6 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <Logo />
               </HeaderLink>
               <HeaderGlobalBar>
+                <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
