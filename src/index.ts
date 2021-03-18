@@ -45,8 +45,21 @@ function setupOpenMRS() {
           () => import("./components/choose-locale/change-locale.component"),
           options
         )
+      },
+      {
+        appName: "@openmrs/esm-primary-navigation",
+        name: "add-nav-options-icon",
+        load: getAsyncLifecycle(() => import("./add-nav-options-icon"), options)
+      },
+      {
+        appName: "@openmrs/esm-primary-navigation",
+        name: "nav-options",
+        load: getAsyncLifecycle(() => import("./nav-options"), options)
       }
     ]
   };
 }
+attach("add-nav-options-icon-slot", "add-nav-options-icon");
+attach("nav-options-slot", "nav-options");
+
 export { backendDependencies, importTranslation, setupOpenMRS };

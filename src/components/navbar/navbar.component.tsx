@@ -1,22 +1,16 @@
 import React from "react";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
-import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
-import SourceFiles from "../urls/sourceFiles";
 import Logo from "../logo/logo.component";
-import { navigate } from "@openmrs/esm-framework";
+import { navigate, ExtensionSlot, Extension } from "@openmrs/esm-framework";
 import {
   HeaderContainer,
   Header,
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction,
-  HeaderPanel,
-  Switcher,
-  SwitcherItem,
-  SwitcherDivider
+  HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 import styles from "./navbar.scss";
@@ -99,43 +93,19 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
-                <HeaderGlobalAction
-                  aria-label="Panel"
-                  aria-labelledby="Panel Icon"
-                  name="Panel"
-                  isCollapsible
-                  onClick={onClickSideNavExpand}
-                  isActive={isSideNavExpanded}
-                >
-                  <AppSwitcher20 />
-                </HeaderGlobalAction>
+                <ExtensionSlot extensionSlotName="add-nav-options-icon-slot">
+                  <HeaderGlobalAction
+                    aria-label="Add"
+                    aria-labelledby="Add Button"
+                    name="AddNavButton"
+                  >
+                    <Extension />
+                  </HeaderGlobalAction>
+                </ExtensionSlot>
               </HeaderGlobalBar>
-              <HeaderPanel aria-label="Header Panel" expanded>
-                <Switcher aria-label="Switcher Container">
-                  <SwitcherItem
-                    aria-label="Clinical Dashboard"
-                    href={SourceFiles.clinical}
-                  >
-                    Clinical Dashboard
-                  </SwitcherItem>
-                  <SwitcherDivider />
-                  <SwitcherItem
-                    href={SourceFiles.patients}
-                    aria-label="Patients"
-                  >
-                    Patients
-                  </SwitcherItem>
-                  <SwitcherItem
-                    href={SourceFiles.schedule}
-                    aria-label="Schedule"
-                  >
-                    Schedule
-                  </SwitcherItem>
-                  <SwitcherItem href={SourceFiles.reports} aria-label="Reports">
-                    Reports
-                  </SwitcherItem>
-                </Switcher>
-              </HeaderPanel>
+              <ExtensionSlot extensionSlotName="nav-options-slot">
+                <Extension />
+              </ExtensionSlot>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               <UserMenuPanel
                 user={user}
