@@ -2,6 +2,7 @@ import React from "react";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
+import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
 import Logo from "../logo/logo.component";
 import { navigate, ExtensionSlot, Extension } from "@openmrs/esm-framework";
 import {
@@ -93,15 +94,13 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
-                <ExtensionSlot extensionSlotName="add-nav-options-icon-slot">
-                  <HeaderGlobalAction
-                    aria-label="Add"
-                    aria-labelledby="Add Button"
-                    name="AddNavButton"
-                  >
-                    <Extension />
-                  </HeaderGlobalAction>
-                </ExtensionSlot>
+                <HeaderGlobalAction
+                  aria-label="Add"
+                  aria-labelledby="Add Button"
+                  name="AddNavButton"
+                >
+                  <AppSwitcher20 />
+                </HeaderGlobalAction>
               </HeaderGlobalBar>
               <ExtensionSlot extensionSlotName="nav-options-slot">
                 <Extension />
