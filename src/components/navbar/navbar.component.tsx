@@ -1,9 +1,11 @@
 import React from "react";
+import Search20 from "@carbon/icons-react/lib/search/20";
+import Add20 from "@carbon/icons-react/lib/add/20";
 import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--alt/20";
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
-import { navigate } from "@openmrs/esm-framework";
+import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
 import {
   HeaderContainer,
   Header,
@@ -15,6 +17,7 @@ import {
 import { LoggedInUser, UserSession } from "../../types";
 import styles from "./navbar.scss";
 import { getCurrentSession } from "../../root.resource";
+import { Search } from "carbon-components-react";
 
 const HeaderLink: any = HeaderName;
 
@@ -62,6 +65,43 @@ const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
+  let [searchBarIsVisible, setSearchBarIsVisible] = React.useState<any>(false);
+
+  let [closeSearchBar, setCloseSearchBar] = React.useState<any>(false);
+
+  const setSearchBar = () => {
+    setSearchBarIsVisible((searchBarIsVisible = true));
+    if (searchBarIsVisible === true) {
+      document
+        .getElementById("searchBar")
+        .classList.add(styles.searchOverlayOn);
+
+      document.getElementById("searchIcon").classList.add(styles.search);
+    } else {
+      document
+        .getElementById("searchBar")
+        .classList.add(styles.searchOverlayOn);
+
+      document
+        .getElementById("searchIcon")
+        .classList.add(styles.searchIconOverlayed.display.none);
+    }
+  };
+
+  let closeSerachBarRef = React.useRef(null);
+
+  let handleSearcbBarClose = e => {
+    e.preventDefault();
+    // eslint-disable-next-line no-console
+    setCloseSearchBar((closeSearchBar = true));
+    setSearchBarIsVisible((searchBarIsVisible = false));
+  };
+
+  let closeTheSearchBar = () => {
+    setCloseSearchBar((closeSearchBar = true));
+    setSearchBarIsVisible((searchBarIsVisible = false));
+  };
+
   return (
     <div ref={headerRef} className={styles.navbar}>
       {session && (
@@ -84,6 +124,30 @@ const Navbar: React.FC<NavbarProps> = ({
                 <Logo />
               </HeaderLink>
               <HeaderGlobalBar>
+                <HeaderGlobalAction className={styles.search} id="searchBar">
+                  <Search
+                    placeHolderText="Search for Patient name or Id"
+                    size="lg"
+                    onBlur={handleSearcbBarClose}
+                  />
+                </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  id="searchIcon"
+                  aria-label="Patient Search"
+                  aria-labelledby="Search Avatar Icon"
+                  name="Searchpatient"
+                  onClick={setSearchBar}
+                >
+                  <Search20 />
+                </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="Create New patient"
+                  aria-labelledby="Add Avatar Icon"
+                  name="Create New patient"
+                >
+                  <Add20 />
+                </HeaderGlobalAction>
+
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
