@@ -147,7 +147,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <Add20 />
                 </HeaderGlobalAction>
-
+                <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
