@@ -65,12 +65,12 @@ const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
-  let [searchBarIsVisible, setSearchBarIsVisible] = React.useState<any>(false);
-
-  let [closeSearchBar, setCloseSearchBar] = React.useState<any>(false);
+  const [searchBarIsVisible, setSearchBarIsVisible] = React.useState<any>(
+    false
+  );
 
   const setSearchBar = () => {
-    setSearchBarIsVisible((searchBarIsVisible = true));
+    setSearchBarIsVisible(true);
     if (searchBarIsVisible === true) {
       document
         .getElementById("searchBar")
@@ -88,18 +88,9 @@ const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  let closeSerachBarRef = React.useRef(null);
-
-  let handleSearcbBarClose = e => {
+  const handleSearchBarClose = e => {
     e.preventDefault();
-    // eslint-disable-next-line no-console
-    setCloseSearchBar((closeSearchBar = true));
-    setSearchBarIsVisible((searchBarIsVisible = false));
-  };
-
-  let closeTheSearchBar = () => {
-    setCloseSearchBar((closeSearchBar = true));
-    setSearchBarIsVisible((searchBarIsVisible = false));
+    setSearchBarIsVisible(false);
   };
 
   return (
@@ -128,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Search
                     placeHolderText="Search for Patient name or Id"
                     size="lg"
-                    onBlur={handleSearcbBarClose}
+                    onBlur={handleSearchBarClose}
                   />
                 </HeaderGlobalAction>
                 <HeaderGlobalAction
