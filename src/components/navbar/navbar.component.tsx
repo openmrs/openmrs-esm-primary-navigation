@@ -4,17 +4,25 @@ import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
 import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
+import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
+import Close20 from "@carbon/icons-react/lib/close/20";
 import {
   HeaderContainer,
   Header,
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction
+  HeaderGlobalAction,
+  HeaderPanel,
+  Switcher,
+  SwitcherItem,
+  SwitcherDivider
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 import styles from "./navbar.scss";
 import { getCurrentSession } from "../../root.resource";
+import SourceFiles from "../../urls";
+import { HeaderSideNavItems } from "carbon-components-react";
 
 const HeaderLink: any = HeaderName;
 
@@ -53,6 +61,22 @@ const Navbar: React.FC<NavbarProps> = ({
     if (headerRef.current && !headerRef.current.contains(event.target)) {
       hidePanel();
     }
+  };
+
+  const [display, setDisplay] = React.useState(false);
+  const [switcher, setSwitcher] = React.useState(false);
+  const [closer, setCloser] = React.useState(false);
+
+  const handleSwitcherClick = () => {
+    setDisplay(true);
+    setSwitcher(true);
+    setCloser(true);
+  };
+
+  const handleCloseClick = () => {
+    setDisplay(false);
+    setSwitcher(false);
+    setCloser(false);
   };
 
   React.useEffect(() => {
@@ -94,6 +118,60 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="Add"
+                  aria-labelledby="Add Button"
+                  name="AddNavButton"
+                  style={{ display: switcher ? "none" : "block" }}
+                  onClick={handleSwitcherClick}
+                >
+                  <AppSwitcher20 />
+                </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="Add"
+                  aria-labelledby="Add Button"
+                  name="AddNavButton"
+                  style={{ display: closer ? "block" : "none" }}
+                  onClick={handleCloseClick}
+                >
+                  <Close20 />
+                </HeaderGlobalAction>
+                <HeaderPanel
+                  aria-label="Header Panel"
+                  style={{
+                    display: display ? "block" : "none",
+                    height: "12rem",
+                    overFlow: "Hidden"
+                  }}
+                  expanded
+                >
+                  <Switcher aria-label="Switcher Container">
+                    <SwitcherItem
+                      aria-label="Clinical Dashboard"
+                      href={SourceFiles.clinical}
+                    >
+                      Clinical Dashboard
+                    </SwitcherItem>
+                    <SwitcherItem
+                      href={SourceFiles.patients}
+                      aria-label="Patients"
+                    >
+                      Patients
+                    </SwitcherItem>
+                    <SwitcherItem
+                      href={SourceFiles.schedule}
+                      aria-label="Schedule"
+                    >
+                      Schedule
+                    </SwitcherItem>
+                    <SwitcherItem
+                      href={SourceFiles.reports}
+                      aria-label="Reports"
+                    >
+                      Reports
+                    </SwitcherItem>
+                  </Switcher>
+                </HeaderPanel>
               </HeaderGlobalBar>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               <UserMenuPanel
