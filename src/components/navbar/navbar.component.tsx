@@ -13,16 +13,10 @@ import {
   HeaderName,
   HeaderGlobalBar,
   HeaderGlobalAction,
-  HeaderPanel,
-  Switcher,
-  SwitcherItem,
-  SwitcherDivider
+  HeaderPanel
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 import styles from "./navbar.scss";
-import { getCurrentSession } from "../../root.resource";
-import SourceFiles from "../../urls";
-import { HeaderSideNavItems } from "carbon-components-react";
 
 const HeaderLink: any = HeaderName;
 
@@ -131,7 +125,10 @@ const Navbar: React.FC<NavbarProps> = ({
                   aria-label="Add"
                   aria-labelledby="Add Button"
                   name="AddNavButton"
-                  style={{ display: closer ? "block" : "none" }}
+                  style={{
+                    display: closer ? "block" : "none",
+                    backgroundColor: "#004144"
+                  }}
                   onClick={handleCloseClick}
                 >
                   <Close20 />
@@ -144,34 +141,8 @@ const Navbar: React.FC<NavbarProps> = ({
                     overFlow: "Hidden"
                   }}
                   expanded
-                >
-                  <Switcher aria-label="Switcher Container">
-                    <SwitcherItem
-                      aria-label="Clinical Dashboard"
-                      href={SourceFiles.clinical}
-                    >
-                      Clinical Dashboard
-                    </SwitcherItem>
-                    <SwitcherItem
-                      href={SourceFiles.patients}
-                      aria-label="Patients"
-                    >
-                      Patients
-                    </SwitcherItem>
-                    <SwitcherItem
-                      href={SourceFiles.schedule}
-                      aria-label="Schedule"
-                    >
-                      Schedule
-                    </SwitcherItem>
-                    <SwitcherItem
-                      href={SourceFiles.reports}
-                      aria-label="Reports"
-                    >
-                      Reports
-                    </SwitcherItem>
-                  </Switcher>
-                </HeaderPanel>
+                ></HeaderPanel>
+                -
               </HeaderGlobalBar>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               <UserMenuPanel
