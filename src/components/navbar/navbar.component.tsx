@@ -14,7 +14,6 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 import styles from "./navbar.scss";
-import { getCurrentSession } from "../../root.resource";
 
 const HeaderLink: any = HeaderName;
 

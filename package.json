@@ -7,7 +7,7 @@
   "main": "dist/openmrs-esm-primary-navigation-app.js",
   "types": "src/index.ts",
   "scripts": {
-    "start": "openmrs debug --run-project",
+    "start": "openmrs develop",
     "serve": "webpack-dev-server",
     "debug": "npm run serve",
     "build": "webpack --mode production",
