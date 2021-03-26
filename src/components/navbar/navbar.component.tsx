@@ -59,13 +59,9 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const [switcherToggler, setSwitcherToggler] = React.useState(false);
 
-  const handleSwitcherClick = () => {
-    setSwitcherToggler(true);
-  };
-
-  const handleCloseClick = () => {
-    setSwitcherToggler(false);
-  };
+  const handleSwitcherClick = React.useCallback(() => {
+    setSwitcherToggler(switcherToggler => !switcherToggler);
+  }, [switcherToggler]);
 
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -107,36 +103,32 @@ const Navbar: React.FC<NavbarProps> = ({
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
                 <HeaderGlobalAction
-                  aria-label="Add"
-                  aria-labelledby="Add Button"
-                  name="AddNavButton"
-                  style={{ display: switcherToggler ? "none" : "block" }}
-                  onClick={handleSwitcherClick}
+                  aria-label="app switcher"
+                  aria-labelledby="app swithcer Icon"
+                  name="switcher"
                 >
-                  <AppSwitcher20 />
-                </HeaderGlobalAction>
-                <HeaderGlobalAction
-                  aria-label="Add"
-                  aria-labelledby="Add Button"
-                  name="AddNavButton"
-                  style={{
-                    display: switcherToggler ? "block" : "none",
-                    backgroundColor: "#004144"
-                  }}
-                  onClick={handleCloseClick}
-                >
-                  <Close20 />
+                  <AppSwitcher20
+                    onClick={handleSwitcherClick}
+                    style={{ display: switcherToggler ? "none" : "block" }}
+                  />
+                  <Close20
+                    onClick={handleSwitcherClick}
+                    style={{
+                      display: switcherToggler ? "block" : "none",
+                      backgroundColor: "#004144"
+                    }}
+                  />
                 </HeaderGlobalAction>
                 <HeaderPanel
                   aria-label="Header Panel"
                   style={{
                     display: switcherToggler ? "block" : "none",
                     height: "12rem",
-                    overFlow: "Hidden"
+                    overFlow: "overflow"
                   }}
                   expanded
                 >
-                  <ExtensionSlot extensionSlotName="global-nav-options"></ExtensionSlot>
+                  <ExtensionSlot extensionSlotName="global-nav-options-slot"></ExtensionSlot>
                 </HeaderPanel>
                 -
               </HeaderGlobalBar>
