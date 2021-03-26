@@ -59,15 +59,17 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const [switcherToggler, setSwitcherToggler] = React.useState(false);
 
+  const Icon: React.FC<any> = () => {
+    return switcherToggler ? (
+      <Close20 style={{ backgroundColor: "#004144" }} />
+    ) : (
+      <AppSwitcher20 />
+    );
+  };
+
   const handleSwitcherClick = React.useCallback(() => {
     setSwitcherToggler(switcherToggler => !switcherToggler);
   }, []);
-
-  const icon = switcherToggler ? (
-    <Close20 onClick={handleSwitcherClick} />
-  ) : (
-    <AppSwitcher20 onClick={handleSwitcherClick} />
-  );
 
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -108,8 +110,11 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
-                <HeaderGlobalAction aria-label="Toggle App Menu">
-                  {icon}
+                <HeaderGlobalAction
+                  aria-label="Toggle App Menu"
+                  onClick={handleSwitcherClick}
+                >
+                  <Icon />
                 </HeaderGlobalAction>
                 <HeaderPanel
                   aria-label="Toggle App Menu Panel"
