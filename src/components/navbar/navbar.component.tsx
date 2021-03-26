@@ -57,20 +57,14 @@ const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const [display, setDisplay] = React.useState(false);
-  const [switcher, setSwitcher] = React.useState(false);
-  const [closer, setCloser] = React.useState(false);
+  const [switcherToggler, setSwitcherToggler] = React.useState(false);
 
   const handleSwitcherClick = () => {
-    setDisplay(true);
-    setSwitcher(true);
-    setCloser(true);
+    setSwitcherToggler(true);
   };
 
   const handleCloseClick = () => {
-    setDisplay(false);
-    setSwitcher(false);
-    setCloser(false);
+    setSwitcherToggler(false);
   };
 
   React.useEffect(() => {
@@ -116,7 +110,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   aria-label="Add"
                   aria-labelledby="Add Button"
                   name="AddNavButton"
-                  style={{ display: switcher ? "none" : "block" }}
+                  style={{ display: switcherToggler ? "none" : "block" }}
                   onClick={handleSwitcherClick}
                 >
                   <AppSwitcher20 />
@@ -126,7 +120,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   aria-labelledby="Add Button"
                   name="AddNavButton"
                   style={{
-                    display: closer ? "block" : "none",
+                    display: switcherToggler ? "block" : "none",
                     backgroundColor: "#004144"
                   }}
                   onClick={handleCloseClick}
@@ -136,12 +130,14 @@ const Navbar: React.FC<NavbarProps> = ({
                 <HeaderPanel
                   aria-label="Header Panel"
                   style={{
-                    display: display ? "block" : "none",
+                    display: switcherToggler ? "block" : "none",
                     height: "12rem",
                     overFlow: "Hidden"
                   }}
                   expanded
-                ></HeaderPanel>
+                >
+                  <ExtensionSlot extensionSlotName="global-nav-options"></ExtensionSlot>
+                </HeaderPanel>
                 -
               </HeaderGlobalBar>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
