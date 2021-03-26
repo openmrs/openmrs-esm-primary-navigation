@@ -61,7 +61,13 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const handleSwitcherClick = React.useCallback(() => {
     setSwitcherToggler(switcherToggler => !switcherToggler);
-  }, [switcherToggler]);
+  }, []);
+
+  const icon = switcherToggler ? (
+    <Close20 onClick={handleSwitcherClick} />
+  ) : (
+    <AppSwitcher20 onClick={handleSwitcherClick} />
+  );
 
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -106,19 +112,8 @@ const Navbar: React.FC<NavbarProps> = ({
                   aria-label="app switcher"
                   aria-labelledby="app swithcer Icon"
                   name="switcher"
-                  style={{ paddingLeft: ".8rem" }}
                 >
-                  <AppSwitcher20
-                    onClick={handleSwitcherClick}
-                    style={{ display: switcherToggler ? "none" : "block" }}
-                  />
-                  <Close20
-                    onClick={handleSwitcherClick}
-                    style={{
-                      display: switcherToggler ? "block" : "none",
-                      backgroundColor: "#004144"
-                    }}
-                  />
+                  {icon}
                 </HeaderGlobalAction>
                 <HeaderPanel
                   aria-label="Header Panel"
