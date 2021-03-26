@@ -106,6 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   aria-label="app switcher"
                   aria-labelledby="app swithcer Icon"
                   name="switcher"
+                  style={{ paddingLeft: ".8rem" }}
                 >
                   <AppSwitcher20
                     onClick={handleSwitcherClick}
@@ -128,7 +129,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   }}
                   expanded
                 >
-                  <ExtensionSlot extensionSlotName="global-nav-options-slot"></ExtensionSlot>
+                  <ExtensionSlot extensionSlotName="global-nav-menu-slot"></ExtensionSlot>
                 </HeaderPanel>
                 -
               </HeaderGlobalBar>
