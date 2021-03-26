@@ -108,15 +108,11 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
-                <HeaderGlobalAction
-                  aria-label="app switcher"
-                  aria-labelledby="app swithcer Icon"
-                  name="switcher"
-                >
+                <HeaderGlobalAction aria-label="Toggle App Menu">
                   {icon}
                 </HeaderGlobalAction>
                 <HeaderPanel
-                  aria-label="Header Panel"
+                  aria-label="Toggle App Menu Panel"
                   style={{
                     display: switcherToggler ? "block" : "none",
                     height: "12rem",
@@ -124,7 +120,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   }}
                   expanded
                 >
-                  <ExtensionSlot extensionSlotName="global-nav-menu-slot"></ExtensionSlot>
+                  <ExtensionSlot extensionSlotName="toggle-app-menu-slot"></ExtensionSlot>
                 </HeaderPanel>
                 -
               </HeaderGlobalBar>
