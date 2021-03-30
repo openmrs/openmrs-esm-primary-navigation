@@ -3,6 +3,7 @@ import Select from "carbon-components-react/es/components/Select";
 import SelectItem from "carbon-components-react/es/components/SelectItem";
 import { refetchCurrentUser } from "@openmrs/esm-framework";
 import { updateUserProperties } from "./change-locale.resource";
+import styles from "./changelocal.component.scss";
 
 interface ChangeLocaleProps {
   allowedLocales: Array<string>;
@@ -31,7 +32,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({
   }, [userProps]);
 
   return (
-    <div className="omrs-margin-12">
+    <div className={`omrs-margin-12 ${styles.label}`}>
       <Select
         name="selectLocale"
         id="selectLocale"
