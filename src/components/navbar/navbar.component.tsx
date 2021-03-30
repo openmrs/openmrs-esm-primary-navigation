@@ -16,8 +16,7 @@ import {
   HeaderPanel
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
-import styles from "./navbar.scss";
-
+import { Switcher } from "carbon-components-react";
 
 const HeaderLink: any = HeaderName;
 
@@ -115,11 +114,10 @@ const Navbar: React.FC<NavbarProps> = ({
                 <HeaderPanel
                   aria-label="Toggle App Menu Panel"
                   style={{
-                    display: switcherToggler ? "block" : "none",
                     height: "12rem",
                     overFlow: "overflow"
                   }}
-                  expanded
+                  expanded={switcherToggler}
                 >
                   <ExtensionSlot extensionSlotName="app-menu-slot" />
                 </HeaderPanel>
