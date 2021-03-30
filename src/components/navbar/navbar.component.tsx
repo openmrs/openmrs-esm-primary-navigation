@@ -59,13 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const [switcherToggler, setSwitcherToggler] = React.useState(false);
 
-  const Icon: React.FC<any> = () => {
-    return switcherToggler ? (
-      <Close20 style={{ backgroundColor: "#004144" }} />
-    ) : (
-      <AppSwitcher20 />
-    );
-  };
+  const Icon = switcherToggler ? Close20 : AppSwitcher20;
 
   const handleSwitcherClick = React.useCallback(() => {
     setSwitcherToggler(switcherToggler => !switcherToggler);
