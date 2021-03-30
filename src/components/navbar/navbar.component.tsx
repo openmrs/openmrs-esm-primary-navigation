@@ -18,6 +18,7 @@ import {
 import { LoggedInUser, UserSession } from "../../types";
 import styles from "./navbar.scss";
 
+
 const HeaderLink: any = HeaderName;
 
 export interface NavbarProps {
@@ -73,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   return (
-    <div ref={headerRef} className={styles.navbar}>
+    <div ref={headerRef}>
       {session && (
         <HeaderContainer
           render={({ isSideNavExpanded, onClickSideNavExpand }) => (
@@ -98,6 +99,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
+                  style={{ padding: "12px" }}
                   name="Users"
                   isActive={isActivePanel("userMenu")}
                   onClick={() => togglePanel("userMenu")}

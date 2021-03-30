@@ -1,9 +1,8 @@
 import React from "react";
+import { ExtensionSlot } from "@openmrs/esm-framework";
 import { HeaderPanel } from "carbon-components-react/es/components/UIShell";
 import { HeaderPanelProps } from "carbon-components-react";
 import { LoggedInUser, UserSession } from "../../types";
-import { ExtensionSlot } from "@openmrs/esm-framework";
-import styles from "./user-menu-panel.component.scss";
 
 interface UserMenuPanelProps extends HeaderPanelProps {
   user: LoggedInUser;
