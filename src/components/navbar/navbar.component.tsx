@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   }}
                   expanded
                 >
-                  <ExtensionSlot extensionSlotName="toggle-app-menu-slot"></ExtensionSlot>
+                  <ExtensionSlot extensionSlotName="app-menu-slot" />
                 </HeaderPanel>
                 -
               </HeaderGlobalBar>
