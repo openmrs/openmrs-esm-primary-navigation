@@ -13,7 +13,7 @@ import {
   HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
-import styles from "./UserAvatar_styles.css";
+import styles from "./navbar.component.scss";
 
 const HeaderLink: any = HeaderName;
 
