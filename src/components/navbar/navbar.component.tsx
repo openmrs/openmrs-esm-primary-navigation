@@ -4,13 +4,16 @@ import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
 import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
+import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
+import Close20 from "@carbon/icons-react/lib/close/20";
 import {
   HeaderContainer,
   Header,
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction
+  HeaderGlobalAction,
+  HeaderPanel
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 
@@ -53,6 +56,14 @@ const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
+  const [switcherToggler, setSwitcherToggler] = React.useState(false);
+
+  const Icon = switcherToggler ? Close20 : AppSwitcher20;
+
+  const handleSwitcherClick = React.useCallback(() => {
+    setSwitcherToggler(switcherToggler => !switcherToggler);
+  }, []);
+
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
@@ -93,6 +104,23 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="Toggle App Menu"
+                  onClick={handleSwitcherClick}
+                >
+                  <Icon />
+                </HeaderGlobalAction>
+                <HeaderPanel
+                  aria-label="Toggle App Menu Panel"
+                  style={{
+                    height: "12rem",
+                    overFlow: "overflow"
+                  }}
+                  expanded={switcherToggler}
+                >
+                  <ExtensionSlot extensionSlotName="app-menu-slot" />
+                </HeaderPanel>
+                -
               </HeaderGlobalBar>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               <UserMenuPanel
