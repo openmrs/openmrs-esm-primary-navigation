@@ -16,7 +16,6 @@ import {
   HeaderPanel
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
-import { Switcher } from "carbon-components-react";
 
 const HeaderLink: any = HeaderName;
 
