@@ -13,6 +13,7 @@ import {
   HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
+import styles from "./UserAvatar_styles.css";
 
 const HeaderLink: any = HeaderName;
 
@@ -86,8 +87,8 @@ const Navbar: React.FC<NavbarProps> = ({
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
-                  style={{ padding: "12px" }}
                   name="Users"
+                  className={styles.usersAvatarStyle}
                   isActive={isActivePanel("userMenu")}
                   onClick={() => togglePanel("userMenu")}
                 >
