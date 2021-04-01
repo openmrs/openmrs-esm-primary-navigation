@@ -4,7 +4,7 @@ import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
 import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
-import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
+import Switcher20 from "@carbon/icons-react/lib/switcher/20";
 import Close20 from "@carbon/icons-react/lib/close/20";
 import {
   HeaderContainer,
@@ -12,10 +12,10 @@ import {
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction,
-  HeaderPanel
+  HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
+import AppMenuPanel from "../navbar-header-panels/app-menu-panel.component";
 
 const HeaderLink: any = HeaderName;
 
@@ -56,13 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const [switcherToggler, setSwitcherToggler] = React.useState(false);
-
-  const Icon = switcherToggler ? Close20 : AppSwitcher20;
-
-  const handleSwitcherClick = React.useCallback(() => {
-    setSwitcherToggler(switcherToggler => !switcherToggler);
-  }, []);
+  const Icon = isActivePanel("appMenu") ? Close20 : Switcher20;
 
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -105,24 +99,16 @@ const Navbar: React.FC<NavbarProps> = ({
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
                 <HeaderGlobalAction
-                  aria-label="Toggle App Menu"
-                  onClick={handleSwitcherClick}
+                  aria-label="App Menu"
+                  isActive={isActivePanel("appMenu")}
+                  aria-labelledby="App Menu"
+                  onClick={() => togglePanel("appMenu")}
                 >
                   <Icon />
                 </HeaderGlobalAction>
-                <HeaderPanel
-                  aria-label="Toggle App Menu Panel"
-                  style={{
-                    height: "12rem",
-                    overFlow: "overflow"
-                  }}
-                  expanded={switcherToggler}
-                >
-                  <ExtensionSlot extensionSlotName="app-menu-slot" />
-                </HeaderPanel>
-                -
               </HeaderGlobalBar>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
+              <AppMenuPanel expanded={isActivePanel("appMenu")} />
               <UserMenuPanel
                 user={user}
                 session={session}
