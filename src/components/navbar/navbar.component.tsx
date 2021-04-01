@@ -4,7 +4,7 @@ import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
 import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
-import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
+import Switcher20 from "@carbon/icons-react/lib/switcher/20";
 import Close20 from "@carbon/icons-react/lib/close/20";
 import {
   HeaderContainer,
@@ -15,7 +15,7 @@ import {
   HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
-import AppMenu from "../navbar-header-panels/app-menu-panel.component";
+import AppMenuPanel from "../navbar-header-panels/app-menu-panel.component";
 
 const HeaderLink: any = HeaderName;
 
@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const Icon = isActivePanel("appMenu") ? Close20 : AppSwitcher20;
+  const Icon = isActivePanel("appMenu") ? Close20 : Switcher20;
 
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -108,7 +108,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 </HeaderGlobalAction>
               </HeaderGlobalBar>
               <SideMenuPanel expanded={isActivePanel("sideMenu")} />
-              <AppMenu expanded={isActivePanel("appMenu")} />
+              <AppMenuPanel expanded={isActivePanel("appMenu")} />
               <UserMenuPanel
                 user={user}
                 session={session}

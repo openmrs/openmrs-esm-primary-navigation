@@ -6,19 +6,12 @@ interface AppMenuProps {
   expanded: boolean;
 }
 
-const AppMenu: React.FC<AppMenuProps> = ({ expanded }) => {
+const AppMenuPanel: React.FC<AppMenuProps> = ({ expanded }) => {
   return (
-    <HeaderPanel
-      aria-label="Toggle App Menu Panel"
-      style={{
-        height: "12rem",
-        overFlow: "overflow"
-      }}
-      expanded={expanded}
-    >
+    <HeaderPanel aria-label="App Menu Panel" expanded={expanded}>
       <ExtensionSlot extensionSlotName="app-menu-slot" />
     </HeaderPanel>
   );
 };
 
-export default AppMenu;
+export default AppMenuPanel;
