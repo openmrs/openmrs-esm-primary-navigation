@@ -5,6 +5,8 @@ import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
 import { isTablet } from "../../utils";
 import { useLayoutType, navigate, ExtensionSlot } from "@openmrs/esm-framework";
+import Switcher20 from "@carbon/icons-react/lib/switcher/20";
+import Close20 from "@carbon/icons-react/lib/close/20";
 import {
   HeaderContainer,
   Header,
@@ -14,7 +16,7 @@ import {
   HeaderGlobalAction
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
-import styles from "./navbar.scss";
+import AppMenuPanel from "../navbar-header-panels/app-menu-panel.component";
 
 const HeaderLink: any = HeaderName;
 
@@ -56,6 +58,8 @@ const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
+  const Icon = isActivePanel("appMenu") ? Close20 : Switcher20;
+
   React.useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
@@ -63,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
   return (
-    <div ref={headerRef} className={styles.navbar}>
+    <div ref={headerRef}>
       {session && (
         <HeaderContainer
           render={({ isSideNavExpanded, onClickSideNavExpand }) => (
@@ -90,16 +94,26 @@ const Navbar: React.FC<NavbarProps> = ({
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
+                  style={{ padding: "12px" }}
                   name="Users"
                   isActive={isActivePanel("userMenu")}
                   onClick={() => togglePanel("userMenu")}
                 >
                   <UserAvatarFilledAlt20 />
                 </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="App Menu"
+                  isActive={isActivePanel("appMenu")}
+                  aria-labelledby="App Menu"
+                  onClick={() => togglePanel("appMenu")}
+                >
+                  <Icon />
+                </HeaderGlobalAction>
               </HeaderGlobalBar>
               {isTablet(layout) && (
                 <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               )}
+              <AppMenuPanel expanded={isActivePanel("appMenu")} />
               <UserMenuPanel
                 user={user}
                 session={session}
