@@ -87,7 +87,10 @@ const Navbar: React.FC<NavbarProps> = ({
                 <Logo />
               </HeaderLink>
               <HeaderGlobalBar>
-                <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
+                <ExtensionSlot
+                  style={{ display: "flex" }}
+                  extensionSlotName="top-nav-actions-slot"
+                />
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
