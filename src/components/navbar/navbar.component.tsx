@@ -16,6 +16,7 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 import AppMenuPanel from "../navbar-header-panels/app-menu-panel.component";
+import styles from "./navbar.component.css";
 
 const HeaderLink: any = HeaderName;
 
@@ -87,7 +88,9 @@ const Navbar: React.FC<NavbarProps> = ({
                 <Logo />
               </HeaderLink>
               <HeaderGlobalBar>
-                <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
+                <div className={styles.headerGlobalActionSlot}>
+                  <ExtensionSlot extensionSlotName="top-nav-actions-slot" />
+                </div>
                 <HeaderGlobalAction
                   aria-label="Users"
                   aria-labelledby="Users Avatar Icon"
