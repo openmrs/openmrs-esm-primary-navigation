@@ -1,1 +1,3 @@
-export const isTablet = layout => layout === "tablet" || layout === "phone";
+import { LayoutType } from "@openmrs/esm-framework";
+
+export const isDesktop = (layout: LayoutType) => layout === "desktop";

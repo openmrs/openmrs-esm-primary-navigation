@@ -3,7 +3,7 @@ import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
-import { isTablet } from "../../utils";
+import { isDesktop } from "../../utils";
 import { useLayoutType, navigate, ExtensionSlot } from "@openmrs/esm-framework";
 import Switcher20 from "@carbon/icons-react/lib/switcher/20";
 import Close20 from "@carbon/icons-react/lib/close/20";
@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <HeaderContainer
           render={({ isSideNavExpanded, onClickSideNavExpand }) => (
             <Header aria-label="OpenMRS">
-              {isTablet(layout) && (
+              {!isDesktop(layout) && (
                 <HeaderMenuButton
                   aria-label="Open menu"
                   isCollapsible
@@ -110,7 +110,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Icon />
                 </HeaderGlobalAction>
               </HeaderGlobalBar>
-              {isTablet(layout) && (
+              {!isDesktop(layout) && (
                 <SideMenuPanel expanded={isActivePanel("sideMenu")} />
               )}
               <AppMenuPanel expanded={isActivePanel("appMenu")} />

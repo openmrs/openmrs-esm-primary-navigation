@@ -6,7 +6,7 @@ import {
   waitForElementToBeRemoved
 } from "@testing-library/react";
 import { of } from "rxjs";
-import { isTablet } from "./utils";
+import { isDesktop } from "./utils";
 import { getCurrentUser, openmrsObservableFetch } from "@openmrs/esm-framework";
 import Root from "./root.component";
 import { mockUser } from "../__mocks__/mock-user";
@@ -27,7 +27,7 @@ jest.mock("@openmrs/esm-framework", () => ({
   useLayoutType: jest.fn(() => "tablet")
 }));
 
-jest.mock("./utils", () => ({ isTablet: jest.fn(() => true) }));
+jest.mock("./utils", () => ({ isDesktop: jest.fn(() => false) }));
 
 describe(`<Root />`, () => {
   beforeEach(() => {
@@ -60,7 +60,7 @@ describe(`<Root />`, () => {
     let component;
 
     beforeEach(() => {
-      (isTablet as jest.Mock).mockImplementation(() => false);
+      (isDesktop as jest.Mock).mockImplementation(() => true);
       component = render(<Root />);
     });
 
