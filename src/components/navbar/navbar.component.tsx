@@ -16,7 +16,7 @@ import {
 } from "carbon-components-react/es/components/UIShell";
 import { LoggedInUser, UserSession } from "../../types";
 import AppMenuPanel from "../navbar-header-panels/app-menu-panel.component";
-import styles from "./navbar.component.css";
+import styles from "./navbar.component.scss";
 
 const HeaderLink: any = HeaderName;
 
