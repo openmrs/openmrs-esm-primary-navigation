@@ -1,17 +1,18 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { of } from "rxjs";
 import {
-  getCurrentUser,
-  openmrsObservableFetch,
-  createErrorHandler
-} from "@openmrs/esm-framework";
+  fireEvent,
+  render,
+  screen,
+  waitForElementToBeRemoved
+} from "@testing-library/react";
+import { of } from "rxjs";
+import { isDesktop } from "./utils";
+import { getCurrentUser, openmrsObservableFetch } from "@openmrs/esm-framework";
 import Root from "./root.component";
 import { mockUser } from "../__mocks__/mock-user";
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
 const mockOpenmrsObservableFetch = openmrsObservableFetch as jest.Mock;
-const mockCreateErrorHandler = createErrorHandler as jest.Mock;
 
 jest.mock("@openmrs/esm-framework", () => ({
   openmrsFetch: jest.fn().mockResolvedValue({}),
@@ -20,8 +21,13 @@ jest.mock("@openmrs/esm-framework", () => ({
   getCurrentUser: jest
     .fn()
     .mockImplementation(() => ({ subscribe: () => {}, unsubscribe: () => {} })),
-  ExtensionSlot: jest.fn().mockImplementation(({ children }) => <>{children}</>)
+  ExtensionSlot: jest
+    .fn()
+    .mockImplementation(({ children }) => <>{children}</>),
+  useLayoutType: jest.fn(() => "tablet")
 }));
+
+jest.mock("./utils", () => ({ isDesktop: jest.fn(() => false) }));
 
 describe(`<Root />`, () => {
   beforeEach(() => {
@@ -48,5 +54,22 @@ describe(`<Root />`, () => {
     const userButton = await screen.findByRole("button", { name: /Users/i });
     fireEvent.click(userButton);
     expect(screen.getByLabelText(/Location/i)).toBeInTheDocument();
+  });
+
+  describe("when view is desktop", () => {
+    let component;
+
+    beforeEach(() => {
+      (isDesktop as jest.Mock).mockImplementation(() => true);
+      component = render(<Root />);
+    });
+
+    it("does not render side menu button if desktop", () => {
+      waitForElementToBeRemoved(() =>
+        component.getByLabelText("Open menu")
+      ).then(() => {
+        expect(component.queryAllByLabelText("Open menu")).toHaveLength(0);
+      });
+    });
   });
 });

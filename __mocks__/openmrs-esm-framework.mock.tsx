@@ -1,6 +1,8 @@
 import React from "react";
 import { of } from "rxjs";
 
+export const useLayoutType = jest.fn(() => "tablet");
+
 export function openmrsFetch() {
   return new Promise(() => {});
 }

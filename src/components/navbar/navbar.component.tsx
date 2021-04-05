@@ -3,7 +3,8 @@ import UserAvatarFilledAlt20 from "@carbon/icons-react/es/user--avatar--filled--
 import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
-import { navigate, ExtensionSlot } from "@openmrs/esm-framework";
+import { isDesktop } from "../../utils";
+import { useLayoutType, navigate, ExtensionSlot } from "@openmrs/esm-framework";
 import Switcher20 from "@carbon/icons-react/lib/switcher/20";
 import Close20 from "@carbon/icons-react/lib/close/20";
 import {
@@ -33,6 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({
   allowedLocales,
   session
 }) => {
+  const layout = useLayoutType();
   const headerRef = React.useRef(null);
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(
     null
@@ -65,19 +67,20 @@ const Navbar: React.FC<NavbarProps> = ({
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
-
   return (
     <div ref={headerRef}>
       {session && (
         <HeaderContainer
           render={({ isSideNavExpanded, onClickSideNavExpand }) => (
             <Header aria-label="OpenMRS">
-              <HeaderMenuButton
-                aria-label="Open menu"
-                isCollapsible
-                onClick={() => togglePanel("sideMenu")}
-                isActive={isActivePanel("sideMenu")}
-              />
+              {!isDesktop(layout) && (
+                <HeaderMenuButton
+                  aria-label="Open menu"
+                  isCollapsible
+                  onClick={() => togglePanel("sideMenu")}
+                  isActive={isActivePanel("sideMenu")}
+                />
+              )}
               <HeaderLink
                 prefix=""
                 onClick={() => {
@@ -111,7 +114,9 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Icon />
                 </HeaderGlobalAction>
               </HeaderGlobalBar>
-              <SideMenuPanel expanded={isActivePanel("sideMenu")} />
+              {!isDesktop(layout) && (
+                <SideMenuPanel expanded={isActivePanel("sideMenu")} />
+              )}
               <AppMenuPanel expanded={isActivePanel("appMenu")} />
               <UserMenuPanel
                 user={user}
