@@ -31,7 +31,7 @@ const UserMenuPanel: React.FC<UserMenuPanelProps> = ({
           allowedLocales: allowedLocales,
           onLogout: onLogout,
           referer: window.location.pathname,
-          currentLocation: session?.sessionLocation.display
+          currentLocation: session?.sessionLocation?.display
         }}
       />
     </HeaderPanel>
