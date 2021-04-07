@@ -1,24 +1,16 @@
 import * as React from "react";
+import { useConfig } from "@openmrs/esm-framework";
 
-interface LogoProps {
-  src?: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-}
-
-const Logo: React.FC<LogoProps> = ({
-  width = "110",
-  height = "40",
-  src,
-  alt
-}) => {
+const Logo: React.FC = () => {
+  const { logo } = useConfig();
   return (
     <>
-      {src ? (
-        <img src={src} alt={alt} width={width} height={height} />
+      {logo?.src ? (
+        <img src={logo.src} alt={logo.alt} width={110} height={40} />
+      ) : logo?.name ? (
+        logo.name
       ) : (
-        <svg role="img" width={width} height={height}>
+        <svg role="img" width={110} height={40}>
           <use xlinkHref="#omrs-logo-partial-grey"></use>
         </svg>
       )}

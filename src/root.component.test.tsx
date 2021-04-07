@@ -57,6 +57,7 @@ describe(`<Root />`, () => {
     expect(
       screen.getByRole("banner", { name: /OpenMRS/i })
     ).toBeInTheDocument();
+    expect(screen.getByText(/Mock EMR/i)).toBeInTheDocument();
   });
 
   it("should open user-menu panel", async () => {
