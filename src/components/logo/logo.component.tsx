@@ -1,10 +1,28 @@
 import * as React from "react";
 
-const Logo = ({ width = "110", height = "40" }) => {
+interface LogoProps {
+  src?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
+const Logo: React.FC<LogoProps> = ({
+  width = "110",
+  height = "40",
+  src,
+  alt
+}) => {
   return (
-    <svg role="img" width={width} height={height}>
-      <use xlinkHref="#omrs-logo-partial-grey"></use>
-    </svg>
+    <>
+      {src ? (
+        <img src={src} alt={alt} width={width} height={height} />
+      ) : (
+        <svg role="img" width={width} height={height}>
+          <use xlinkHref="#omrs-logo-partial-grey"></use>
+        </svg>
+      )}
+    </>
   );
 };
 

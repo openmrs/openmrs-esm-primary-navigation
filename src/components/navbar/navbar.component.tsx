@@ -4,7 +4,12 @@ import UserMenuPanel from "../navbar-header-panels/user-menu-panel.component";
 import SideMenuPanel from "../navbar-header-panels/side-menu-panel.component";
 import Logo from "../logo/logo.component";
 import { isDesktop } from "../../utils";
-import { useLayoutType, navigate, ExtensionSlot } from "@openmrs/esm-framework";
+import {
+  useLayoutType,
+  navigate,
+  ExtensionSlot,
+  useConfig
+} from "@openmrs/esm-framework";
 import Switcher20 from "@carbon/icons-react/lib/switcher/20";
 import Close20 from "@carbon/icons-react/lib/close/20";
 import {
@@ -34,6 +39,7 @@ const Navbar: React.FC<NavbarProps> = ({
   allowedLocales,
   session
 }) => {
+  const config = useConfig();
   const layout = useLayoutType();
   const headerRef = React.useRef(null);
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(
@@ -88,7 +94,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   hidePanel();
                 }}
               >
-                <Logo />
+                {config.logo.name ? (
+                  config.logo.name
+                ) : (
+                  <Logo src={config.logo?.src} alt={config.logo?.alt} />
+                )}
               </HeaderLink>
               <HeaderGlobalBar>
                 <ExtensionSlot
