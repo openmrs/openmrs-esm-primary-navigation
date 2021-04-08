@@ -1,9 +1,6 @@
-import {
-  defineConfigSchema,
-  getAsyncLifecycle,
-  attach
-} from "@openmrs/esm-framework";
-import { backendDependencies } from "./openmrs-backend-dependencies";
+import { defineConfigSchema, getAsyncLifecycle } from "@openmrs/esm-framework";
+
+const backendDependencies = { "webservices.rest": "^2.2.0" };
 
 const importTranslation = require.context(
   "../translations",
