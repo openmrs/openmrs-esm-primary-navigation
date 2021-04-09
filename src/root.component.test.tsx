@@ -7,12 +7,17 @@ import {
 } from "@testing-library/react";
 import { of } from "rxjs";
 import { isDesktop } from "./utils";
-import { getCurrentUser, openmrsObservableFetch } from "@openmrs/esm-framework";
+import {
+  getCurrentUser,
+  openmrsObservableFetch,
+  useConfig
+} from "@openmrs/esm-framework";
 import Root from "./root.component";
 import { mockUser } from "../__mocks__/mock-user";
 
 const mockGetCurrentUser = getCurrentUser as jest.Mock;
 const mockOpenmrsObservableFetch = openmrsObservableFetch as jest.Mock;
+const mockUseConfig = useConfig as jest.Mock;
 
 jest.mock("@openmrs/esm-framework", () => ({
   openmrsFetch: jest.fn().mockResolvedValue({}),
@@ -24,7 +29,8 @@ jest.mock("@openmrs/esm-framework", () => ({
   ExtensionSlot: jest
     .fn()
     .mockImplementation(({ children }) => <>{children}</>),
-  useLayoutType: jest.fn(() => "tablet")
+  useLayoutType: jest.fn(() => "tablet"),
+  useConfig: jest.fn()
 }));
 
 jest.mock("./utils", () => ({ isDesktop: jest.fn(() => false) }));
@@ -35,6 +41,9 @@ describe(`<Root />`, () => {
     mockOpenmrsObservableFetch.mockImplementation(() =>
       of({ data: { sessionLocation: { display: "Unknown Location" } } })
     );
+    mockUseConfig.mockReturnValue({
+      logo: { src: null, alt: null, name: "Mock EMR" }
+    });
     render(<Root />);
   });
 
@@ -48,6 +57,7 @@ describe(`<Root />`, () => {
     expect(
       screen.getByRole("banner", { name: /OpenMRS/i })
     ).toBeInTheDocument();
+    expect(screen.getByText(/Mock EMR/i)).toBeInTheDocument();
   });
 
   it("should open user-menu panel", async () => {

@@ -1,4 +1,5 @@
 import { defineConfigSchema, getAsyncLifecycle } from "@openmrs/esm-framework";
+import { configSchema } from "./config-schema";
 
 const backendDependencies = { "webservices.rest": "^2.2.0" };
 
@@ -17,7 +18,7 @@ function setupOpenMRS() {
     moduleName
   };
 
-  defineConfigSchema(moduleName, {});
+  defineConfigSchema(moduleName, configSchema);
 
   return {
     lifecycle: getAsyncLifecycle(() => import("./root.component"), options),
