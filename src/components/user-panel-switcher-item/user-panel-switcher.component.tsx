@@ -4,8 +4,8 @@ import SwitcherDivider from 'carbon-components-react/lib/components/UIShell/Swit
 import React from 'react';
 import Logout from '../logout/logout.component';
 import styles from './user-panel-switcher.component.scss';
-import { useTranslation } from 'react-i18next';
 import { LoggedInUser } from '../../types';
+import { useIsOffline } from '../../offline/hooks';
 
 interface UserPanelSwitcherItemProps {
   user: LoggedInUser;
@@ -14,17 +14,22 @@ interface UserPanelSwitcherItemProps {
 }
 
 const UserPanelSwitcher: React.FC<UserPanelSwitcherItemProps> = ({ user, allowedLocales, onLogout }) => {
-  const { t } = useTranslation();
+  const isOffline = useIsOffline();
+
   return (
     <div className={styles.switcherContainer}>
       <Switcher aria-label="Switcher Container">
         <UserAvatarFilledAlt20 />
         <p>{user.person.display}</p>
       </Switcher>
-      <SwitcherDivider className={styles.divider} />
-      <Switcher aria-label="Switcher Container">
-        <Logout onLogout={onLogout} />
-      </Switcher>
+      {!isOffline && (
+        <>
+          <SwitcherDivider className={styles.divider} />
+          <Switcher aria-label="Switcher Container">
+            <Logout onLogout={onLogout} />
+          </Switcher>
+        </>
+      )}
     </div>
   );
 };
