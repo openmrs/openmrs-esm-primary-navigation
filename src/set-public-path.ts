@@ -1,3 +1,3 @@
-import { setPublicPath } from "systemjs-webpack-interop";
+import { setPublicPath } from 'systemjs-webpack-interop';
 
-setPublicPath("@openmrs/esm-primary-navigation-app");
+setPublicPath('@openmrs/esm-primary-navigation-app');
