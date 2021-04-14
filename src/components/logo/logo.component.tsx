@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useConfig } from '@openmrs/esm-framework';
 
 const Logo: React.FC = () => {
