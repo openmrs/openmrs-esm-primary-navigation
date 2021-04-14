@@ -1,6 +1,6 @@
-import React from "react";
-import { ExtensionSlot } from "@openmrs/esm-framework";
-import { HeaderPanel } from "carbon-components-react/es/components/UIShell";
+import React from 'react';
+import { ExtensionSlot } from '@openmrs/esm-framework';
+import { HeaderPanel } from 'carbon-components-react/es/components/UIShell';
 
 interface AppMenuProps {
   expanded: boolean;

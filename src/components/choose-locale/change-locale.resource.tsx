@@ -1,18 +1,18 @@
-import { openmrsFetch } from "@openmrs/esm-framework";
+import { openmrsFetch } from '@openmrs/esm-framework';
 
 export function updateUserProperties(
   userUuid: string,
   userProperties: any,
-  abortController: AbortController
+  abortController: AbortController,
 ): Promise<any> {
-  return openmrsFetch("/ws/rest/v1/user/" + userUuid, {
-    method: "POST",
+  return openmrsFetch('/ws/rest/v1/user/' + userUuid, {
+    method: 'POST',
     body: {
-      userProperties: userProperties
+      userProperties: userProperties,
     },
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    signal: abortController.signal
+    signal: abortController.signal,
   });
 }

@@ -14,7 +14,7 @@
     "analyze": "webpack --mode=production --env.analyze=true",
     "lint": "eslint src --ext tsx",
     "prepublishOnly": "npm run build",
-    "prettier": "prettier 'src/**/*' --write",
+    "prettier": "prettier --config prettier.config.js --write \"src/**/*.{ts,tsx}\"",
     "test": "jest --config jest.config.json",
     "typescript": "tsc",
     "coverage": "npm test -- --coverage"
