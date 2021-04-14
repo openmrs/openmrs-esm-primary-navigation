@@ -35,4 +35,7 @@ function setupOpenMRS() {
     ],
   };
 }
-export { backendDependencies, importTranslation, setupOpenMRS };
+
+const setupOpenMRSOffline = setupOpenMRS;
+
+export { backendDependencies, importTranslation, setupOpenMRS, setupOpenMRSOffline };

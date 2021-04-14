@@ -14,7 +14,7 @@ export default function Root() {
   const [userSession, setUserSession] = React.useState<UserSession>(null);
 
   React.useEffect(() => {
-    const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(response => {
+    const currentUserSub = getCurrentUser({ includeAuthStatus: true }).subscribe(response => {
       setAllowedLocales(response['allowedLocales']);
       if (response.authenticated) {
         setUser(response.user);
@@ -24,10 +24,12 @@ export default function Root() {
 
       createErrorHandler();
     });
-    const sub1 = getCurrentSession().subscribe(({ data }) => setUserSession(data));
+
+    const currentSessionSub = getCurrentSession().subscribe(({ data }) => setUserSession(data));
+
     return () => {
-      if (sub) return sub.unsubscribe();
-      if (sub1) return sub1.unsubscribe();
+      currentUserSub.unsubscribe();
+      currentSessionSub.unsubscribe();
     };
   }, []);
 
