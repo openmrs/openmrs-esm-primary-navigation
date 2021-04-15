@@ -2,27 +2,34 @@ import React, { useEffect, useState } from 'react';
 import Select from 'carbon-components-react/es/components/Select';
 import SelectItem from 'carbon-components-react/es/components/SelectItem';
 import styles from './changelocal.component.scss';
-import { usePostUserLocale } from '../../offline/user-locale';
+import { PostUserProperties } from '../../offline/user-properties.resource';
+import { refetchCurrentUser } from '@openmrs/esm-framework';
+import { LoggedInUser } from '../../types';
 
-interface ChangeLocaleProps {
+export interface ChangeLocaleProps {
   allowedLocales: Array<string>;
-  user: any;
+  user: LoggedInUser;
+  postUserProperties: PostUserProperties;
 }
 
-const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user }) => {
-  const postUserLocale = usePostUserLocale();
+const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postUserProperties }) => {
   const [userProps, setUserProps] = useState(user.userProperties);
   const options = allowedLocales?.map(locale => <SelectItem text={locale} value={locale} key={locale} />);
 
   useEffect(() => {
-    if (user.userProperties.defaultLocale === userProps.defaultLocale) {
-      return;
-    }
+    if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
+      const ac = new AbortController();
 
-    const ac = new AbortController();
-    postUserLocale(userProps.defaultLocale);
-    return () => ac.abort();
-  }, [user, userProps, postUserLocale]);
+      postUserProperties(user.uuid, userProps, ac).then(response => {
+        if (response.ok) {
+          refetchCurrentUser();
+        }
+      });
+
+      return () => ac.abort();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userProps]);
 
   return (
     <div className={`omrs-margin-12 ${styles.labelselect}`}>

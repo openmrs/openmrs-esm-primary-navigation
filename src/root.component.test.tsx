@@ -31,7 +31,7 @@ describe(`<Root />`, () => {
     mockUseConfig.mockReturnValue({
       logo: { src: null, alt: null, name: 'Mock EMR' },
     });
-    render(<Root />);
+    render(<Root syncUserPropertiesChangesOnLoad={false} />);
   });
 
   afterEach(() => {
@@ -56,7 +56,7 @@ describe(`<Root />`, () => {
 
     beforeEach(() => {
       (isDesktop as jest.Mock).mockImplementation(() => true);
-      component = render(<Root />);
+      component = render(<Root syncUserPropertiesChangesOnLoad={false} />);
     });
 
     it('does not render side menu button if desktop', () => {

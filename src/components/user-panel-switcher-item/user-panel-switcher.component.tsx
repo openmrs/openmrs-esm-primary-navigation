@@ -2,36 +2,31 @@ import UserAvatarFilledAlt20 from '@carbon/icons-react/es/user--avatar--filled--
 import Switcher from 'carbon-components-react/lib/components/UIShell/Switcher';
 import SwitcherDivider from 'carbon-components-react/lib/components/UIShell/SwitcherDivider';
 import React from 'react';
+import { LoggedInUser } from '../../types';
 import Logout from '../logout/logout.component';
 import styles from './user-panel-switcher.component.scss';
-import { LoggedInUser } from '../../types';
-import { useIsOffline } from '../../offline/hooks';
 
-interface UserPanelSwitcherItemProps {
+export interface UserPanelSwitcherItemProps {
   user: LoggedInUser;
-  allowedLocales: any;
+  isLogoutEnabled: boolean;
   onLogout(): void;
 }
 
-const UserPanelSwitcher: React.FC<UserPanelSwitcherItemProps> = ({ user, allowedLocales, onLogout }) => {
-  const isOffline = useIsOffline();
-
-  return (
-    <div className={styles.switcherContainer}>
-      <Switcher aria-label="Switcher Container">
-        <UserAvatarFilledAlt20 />
-        <p>{user.person.display}</p>
-      </Switcher>
-      {!isOffline && (
-        <>
-          <SwitcherDivider className={styles.divider} />
-          <Switcher aria-label="Switcher Container">
-            <Logout onLogout={onLogout} />
-          </Switcher>
-        </>
-      )}
-    </div>
-  );
-};
+const UserPanelSwitcher: React.FC<UserPanelSwitcherItemProps> = ({ user, isLogoutEnabled, onLogout }) => (
+  <div className={styles.switcherContainer}>
+    <Switcher aria-label="Switcher Container">
+      <UserAvatarFilledAlt20 />
+      <p>{user.person.display}</p>
+    </Switcher>
+    {isLogoutEnabled && (
+      <>
+        <SwitcherDivider className={styles.divider} />
+        <Switcher aria-label="Switcher Container">
+          <Logout onLogout={onLogout} />
+        </Switcher>
+      </>
+    )}
+  </div>
+);
 
 export default UserPanelSwitcher;
