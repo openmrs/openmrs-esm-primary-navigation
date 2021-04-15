@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'carbon-components-react/es/components/Select';
 import SelectItem from 'carbon-components-react/es/components/SelectItem';
-import { refetchCurrentUser } from '@openmrs/esm-framework';
-import { updateUserProperties } from './change-locale.resource';
 import styles from './changelocal.component.scss';
+import { usePostUserLocale } from '../../offline/user-locale';
 
 interface ChangeLocaleProps {
   allowedLocales: Array<string>;
@@ -11,20 +10,19 @@ interface ChangeLocaleProps {
 }
 
 const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user }) => {
+  const postUserLocale = usePostUserLocale();
   const [userProps, setUserProps] = useState(user.userProperties);
   const options = allowedLocales?.map(locale => <SelectItem text={locale} value={locale} key={locale} />);
 
   useEffect(() => {
-    if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
-      const ac = new AbortController();
-      updateUserProperties(user.uuid, userProps, ac).then(response => {
-        if (response.ok) {
-          refetchCurrentUser();
-        }
-      });
-      return () => ac.abort();
+    if (user.userProperties.defaultLocale === userProps.defaultLocale) {
+      return;
     }
-  }, [userProps]);
+
+    const ac = new AbortController();
+    postUserLocale(userProps.defaultLocale);
+    return () => ac.abort();
+  }, [user, userProps, postUserLocale]);
 
   return (
     <div className={`omrs-margin-12 ${styles.labelselect}`}>

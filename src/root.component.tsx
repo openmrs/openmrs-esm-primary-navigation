@@ -5,6 +5,7 @@ import { BrowserRouter, Redirect } from 'react-router-dom';
 import { getCurrentUser, createErrorHandler } from '@openmrs/esm-framework';
 import { LoggedInUser, UserSession } from './types';
 import { getCurrentSession } from './root.resource';
+import { useLoggedInUserPropertiesSync } from './offline/user-locale';
 
 export default function Root() {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
@@ -12,6 +13,8 @@ export default function Root() {
   const logout = React.useCallback(() => setUser(false), []);
   const openmrsSpaBase = window['getOpenmrsSpaBase']();
   const [userSession, setUserSession] = React.useState<UserSession>(null);
+
+  useLoggedInUserPropertiesSync();
 
   React.useEffect(() => {
     const currentUserSub = getCurrentUser({ includeAuthStatus: true }).subscribe(response => {
