@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
     <div ref={headerRef}>
       {session && (
         <HeaderContainer
-          render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+          render={() => (
             <Header aria-label="OpenMRS">
               {!isDesktop(layout) && (
                 <HeaderMenuButton

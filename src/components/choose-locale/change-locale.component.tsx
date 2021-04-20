@@ -19,13 +19,7 @@ const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postU
   useEffect(() => {
     if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
       const ac = new AbortController();
-
-      postUserProperties(user.uuid, userProps, ac).then(response => {
-        if (response.ok) {
-          refetchCurrentUser();
-        }
-      });
-
+      postUserProperties(user.uuid, userProps, ac).then(() => refetchCurrentUser());
       return () => ac.abort();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

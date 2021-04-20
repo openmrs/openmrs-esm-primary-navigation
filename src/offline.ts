@@ -18,6 +18,7 @@ export async function syncUserPropertiesChanges(loggedInUser: LoggedInUser, abor
     await postUserPropertiesOnline(loggedInUser.uuid, newUserProperties, abortController);
     refetchCurrentUser();
     await db.userPropertiesChanges.bulkDelete(queuedChangeEntries.map(change => change.id));
+    refetchCurrentUser();
   }
 }
 

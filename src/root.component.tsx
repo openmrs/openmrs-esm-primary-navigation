@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import styles from './root.styles.css';
 import Navbar from './components/navbar/navbar.component';
 import { BrowserRouter, Redirect } from 'react-router-dom';
-import { getCurrentUser, createErrorHandler } from '@openmrs/esm-framework';
+import { createErrorHandler } from '@openmrs/esm-framework';
 import { LoggedInUser, UserSession } from './types';
-import { getCurrentSession } from './root.resource';
+import { getCurrentSession, getSynchronizedCurrentUser } from './root.resource';
 import { syncUserPropertiesChanges } from './offline';
 
 export interface RootProps {
@@ -13,10 +13,10 @@ export interface RootProps {
 
 const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
+  const [userSession, setUserSession] = React.useState<UserSession>(null);
   const [allowedLocales, setAllowedLocales] = React.useState();
   const logout = React.useCallback(() => setUser(false), []);
   const openmrsSpaBase = window['getOpenmrsSpaBase']();
-  const [userSession, setUserSession] = React.useState<UserSession>(null);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -29,7 +29,7 @@ const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
   }, [syncUserPropertiesChangesOnLoad, user]);
 
   React.useEffect(() => {
-    const currentUserSub = getCurrentUser({ includeAuthStatus: true }).subscribe(response => {
+    const currentUserSub = getSynchronizedCurrentUser({ includeAuthStatus: true }).subscribe(response => {
       setAllowedLocales(response['allowedLocales']);
       if (response.authenticated) {
         setUser(response.user);
@@ -53,7 +53,6 @@ const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
       <div className={styles.primaryNavContainer}>
         {user === false ? (
           <Redirect
-            // @ts-ignore
             to={{
               pathname: `${openmrsSpaBase}login`,
               state: {
