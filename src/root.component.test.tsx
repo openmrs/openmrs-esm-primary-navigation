@@ -30,7 +30,7 @@ jest.mock('./offline', () => ({
 }));
 
 jest.mock('./utils', () => ({
-  isDesktop: jest.fn(() => false),
+  isDesktop: jest.fn(() => true),
 }));
 
 describe(`<Root />`, () => {
@@ -51,17 +51,12 @@ describe(`<Root />`, () => {
   });
 
   describe('when view is desktop', () => {
-    let component;
-
     beforeEach(() => {
       (isDesktop as jest.Mock).mockImplementation(() => true);
-      component = render(<Root syncUserPropertiesChangesOnLoad={false} />);
     });
 
-    it('does not render side menu button if desktop', () => {
-      waitForElementToBeRemoved(() => component.getByLabelText('Open menu')).then(() => {
-        expect(component.queryAllByLabelText('Open menu')).toHaveLength(0);
-      });
+    it('does not render side menu button if desktop', async () => {
+      await wait(() => expect(screen.queryAllByLabelText('Open menu')).toHaveLength(0));
     });
   });
 });
