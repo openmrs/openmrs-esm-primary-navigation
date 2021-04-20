@@ -1,5 +1,5 @@
 import React from 'react';
-import { postUserPropertiesOnline } from '../../offline/user-properties.resource';
+import { postUserPropertiesOnline } from './change-locale-online.resource';
 import ChangeLocale, { ChangeLocaleProps } from './change-locale.component';
 
 const ChangeLocaleOffline: React.FC<ChangeLocaleProps> = props => (

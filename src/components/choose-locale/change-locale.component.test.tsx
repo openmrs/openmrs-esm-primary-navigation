@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, wait, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, wait } from '@testing-library/react';
 import ChangeLocale from './change-locale.component';
 
 const allowedLocales = ['en', 'fr', 'it', 'pt'];

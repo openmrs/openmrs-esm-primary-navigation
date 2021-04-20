@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Select from 'carbon-components-react/es/components/Select';
 import SelectItem from 'carbon-components-react/es/components/SelectItem';
 import styles from './change-locale.component.scss';
-import { PostUserProperties } from '../../offline/user-properties.resource';
 import { refetchCurrentUser } from '@openmrs/esm-framework';
 import { LoggedInUser } from '../../types';
+import { PostUserProperties } from './change-locale.resource';
 
 export interface ChangeLocaleProps {
   allowedLocales: Array<string>;
