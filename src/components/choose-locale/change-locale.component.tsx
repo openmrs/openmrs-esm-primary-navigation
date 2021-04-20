@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'carbon-components-react/es/components/Select';
 import SelectItem from 'carbon-components-react/es/components/SelectItem';
+import styles from './change-locale.component.scss';
 import { refetchCurrentUser } from '@openmrs/esm-framework';
-import { updateUserProperties } from './change-locale.resource';
-import styles from './changelocal.component.scss';
+import { LoggedInUser } from '../../types';
+import { PostUserProperties } from './change-locale.resource';
 
-interface ChangeLocaleProps {
+export interface ChangeLocaleProps {
   allowedLocales: Array<string>;
-  user: any;
+  user: LoggedInUser;
+  postUserProperties: PostUserProperties;
 }
 
-const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user }) => {
+const ChangeLocale: React.FC<ChangeLocaleProps> = ({ allowedLocales, user, postUserProperties }) => {
   const [userProps, setUserProps] = useState(user.userProperties);
   const options = allowedLocales?.map(locale => <SelectItem text={locale} value={locale} key={locale} />);
 
   useEffect(() => {
     if (user.userProperties.defaultLocale !== userProps.defaultLocale) {
       const ac = new AbortController();
-      updateUserProperties(user.uuid, userProps, ac).then(response => {
-        if (response.ok) {
-          refetchCurrentUser();
-        }
-      });
+      postUserProperties(user.uuid, userProps, ac).then(() => refetchCurrentUser());
       return () => ac.abort();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProps]);
 
   return (

@@ -1,5 +1,7 @@
 export interface LoggedInUser {
+  uuid: string;
   username: string;
+  userProperties: any;
   person: {
     display: string;
   };
