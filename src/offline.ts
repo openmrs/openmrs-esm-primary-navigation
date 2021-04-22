@@ -1,6 +1,6 @@
 import { refetchCurrentUser, User } from '@openmrs/esm-framework';
 import Dexie, { Table } from 'dexie';
-import { postUserPropertiesOnline } from './components/choose-locale/change-locale-online.resource';
+import { postUserPropertiesOnline } from './components/choose-locale/change-locale.resource';
 import { LoggedInUser } from './types';
 
 /**
