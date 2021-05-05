@@ -9,7 +9,7 @@ interface AppMenuProps {
 
 const AppMenuPanel: React.FC<AppMenuProps> = ({ expanded }) => {
   return (
-    <HeaderPanel aria-label="App Menu Panel" expanded={expanded}>
+    <HeaderPanel className={styles.headerPanel} aria-label="App Menu Panel" expanded={expanded}>
       <ExtensionSlot className={styles.menuLink} extensionSlotName="app-menu-slot" />
     </HeaderPanel>
   );

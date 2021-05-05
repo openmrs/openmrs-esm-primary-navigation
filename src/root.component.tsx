@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from './root.styles.css';
+import styles from './root.scss';
 import Navbar from './components/navbar/navbar.component';
 import { BrowserRouter, Redirect } from 'react-router-dom';
 import { createErrorHandler } from '@openmrs/esm-framework';
