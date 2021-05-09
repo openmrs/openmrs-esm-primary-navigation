@@ -1,6 +1,7 @@
 import React from 'react';
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import { HeaderPanel } from 'carbon-components-react/es/components/UIShell';
+import styles from './app-menu-panel.component.scss';
 
 interface AppMenuProps {
   expanded: boolean;
@@ -8,8 +9,8 @@ interface AppMenuProps {
 
 const AppMenuPanel: React.FC<AppMenuProps> = ({ expanded }) => {
   return (
-    <HeaderPanel aria-label="App Menu Panel" expanded={expanded}>
-      <ExtensionSlot extensionSlotName="app-menu-slot" />
+    <HeaderPanel className={styles.headerPanel} aria-label="App Menu Panel" expanded={expanded}>
+      <ExtensionSlot className={styles.menuLink} extensionSlotName="app-menu-slot" />
     </HeaderPanel>
   );
 };

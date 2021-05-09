@@ -41,7 +41,9 @@
     "url": "https://github.com/openmrs/openmrs-esm-primary-navigation/issues"
   },
   "dependencies": {
-    "carbon-components-react": "^7.25.0"
+    "carbon-components-react": "^7.25.0",
+    "dexie": "^3.0.3",
+    "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
     "@openmrs/esm-framework": "3.x",
@@ -63,10 +65,11 @@
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^12.8.1",
+    "@types/carbon__icons-react": "^10.17.1",
     "@types/carbon-components": "^10.15.0",
     "@types/carbon-components-react": "^7.10.9",
-    "@types/carbon__icons-react": "^10.17.1",
     "@types/jest": "^26.0.4",
+    "@types/lodash-es": "^4.17.4",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/react-router": "^5.1.8",

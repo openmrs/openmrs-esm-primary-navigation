@@ -21,3 +21,13 @@ $labeldropdown: #c6c6c6;
 .bodyLong01 {
   @include carbon--type-style("body-long-01");
 }
+
+.headerPanel {
+  min-height: fit-content;
+}
+
+.primaryNavContainer {
+  position: fixed;
+  top: 0;
+  z-index: 3;
+}

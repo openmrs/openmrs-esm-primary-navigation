@@ -1,20 +1,35 @@
-import React from 'react';
-import styles from './root.styles.css';
+import React, { useEffect } from 'react';
+import styles from './root.scss';
 import Navbar from './components/navbar/navbar.component';
 import { BrowserRouter, Redirect } from 'react-router-dom';
-import { getCurrentUser, createErrorHandler } from '@openmrs/esm-framework';
+import { createErrorHandler } from '@openmrs/esm-framework';
 import { LoggedInUser, UserSession } from './types';
-import { getCurrentSession } from './root.resource';
+import { getCurrentSession, getSynchronizedCurrentUser } from './root.resource';
+import { syncUserPropertiesChanges } from './offline';
 
-export default function Root() {
+export interface RootProps {
+  syncUserPropertiesChangesOnLoad: boolean;
+}
+
+const Root: React.FC<RootProps> = ({ syncUserPropertiesChangesOnLoad }) => {
   const [user, setUser] = React.useState<LoggedInUser | null | false>(null);
+  const [userSession, setUserSession] = React.useState<UserSession>(null);
   const [allowedLocales, setAllowedLocales] = React.useState();
   const logout = React.useCallback(() => setUser(false), []);
   const openmrsSpaBase = window['getOpenmrsSpaBase']();
-  const [userSession, setUserSession] = React.useState<UserSession>(null);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    if (syncUserPropertiesChangesOnLoad && user) {
+      syncUserPropertiesChanges(user, abortController);
+    }
+
+    return () => abortController.abort();
+  }, [syncUserPropertiesChangesOnLoad, user]);
 
   React.useEffect(() => {
-    const sub = getCurrentUser({ includeAuthStatus: true }).subscribe(response => {
+    const currentUserSub = getSynchronizedCurrentUser({ includeAuthStatus: true }).subscribe(response => {
       setAllowedLocales(response['allowedLocales']);
       if (response.authenticated) {
         setUser(response.user);
@@ -24,10 +39,12 @@ export default function Root() {
 
       createErrorHandler();
     });
-    const sub1 = getCurrentSession().subscribe(({ data }) => setUserSession(data));
+
+    const currentSessionSub = getCurrentSession().subscribe(({ data }) => setUserSession(data));
+
     return () => {
-      if (sub) return sub.unsubscribe();
-      if (sub1) return sub1.unsubscribe();
+      currentUserSub.unsubscribe();
+      currentSessionSub.unsubscribe();
     };
   }, []);
 
@@ -36,7 +53,6 @@ export default function Root() {
       <div className={styles.primaryNavContainer}>
         {user === false ? (
           <Redirect
-            // @ts-ignore
             to={{
               pathname: `${openmrsSpaBase}login`,
               state: {
@@ -52,4 +68,6 @@ export default function Root() {
       </div>
     </BrowserRouter>
   );
-}
+};
+
+export default Root;

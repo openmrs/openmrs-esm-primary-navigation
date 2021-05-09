@@ -15,9 +15,7 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
   React.useEffect(() => {
     const ac = new AbortController();
     if (isLoggingOut) {
-      openmrsFetch('/ws/rest/v1/session', {
-        method: 'DELETE',
-      })
+      openmrsFetch('/ws/rest/v1/session', { method: 'DELETE' })
         .then(refetchCurrentUser)
         .then(onLogout);
     }
