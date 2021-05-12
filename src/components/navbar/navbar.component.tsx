@@ -30,7 +30,6 @@ export interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session }) => {
   const layout = useLayoutType();
-  const headerRef = React.useRef(null);
   const [activeHeaderPanel, setActiveHeaderPanel] = React.useState<string>(null);
 
   const isActivePanel = React.useCallback((panelName: string) => activeHeaderPanel === panelName, [activeHeaderPanel]);
@@ -44,17 +43,6 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
   const hidePanel = React.useCallback(() => {
     setActiveHeaderPanel(null);
   }, []);
-
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(event.target)) {
-        hidePanel();
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside, true);
-    return () => document.removeEventListener('click', handleClickOutside, true);
-  }, [hidePanel, headerRef]);
 
   const render = React.useCallback(() => {
     const Icon = isActivePanel('appMenu') ? Close20 : Switcher20;
@@ -96,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
             <Icon />
           </HeaderGlobalAction>
         </HeaderGlobalBar>
-        {!isDesktop(layout) && <SideMenuPanel expanded={isActivePanel('sideMenu')} />}
+        {!isDesktop(layout) && <SideMenuPanel hidePanel={hidePanel} expanded={isActivePanel('sideMenu')} />}
         <AppMenuPanel expanded={isActivePanel('appMenu')} />
         <UserMenuPanel
           user={user}
@@ -109,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ user, onLogout, allowedLocales, session
     );
   }, [session, user, allowedLocales, isActivePanel, layout, hidePanel, togglePanel]);
 
-  return <div ref={headerRef}>{session && <HeaderContainer render={render} />}</div>;
+  return <div>{session && <HeaderContainer render={render} />}</div>;
 };
 
 export default Navbar;
