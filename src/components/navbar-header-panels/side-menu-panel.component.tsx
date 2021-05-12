@@ -19,7 +19,7 @@ const SideMenuPanel: React.FC<SideMenuPanelProps> = ({ expanded, hidePanel }) =>
 
     document.addEventListener('click', handleClickOutside, true);
     return () => document.removeEventListener('click', handleClickOutside, true);
-  }, [menuRef]);
+  }, [menuRef, hidePanel]);
 
   return (
     expanded && (
