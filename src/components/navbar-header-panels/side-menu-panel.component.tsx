@@ -10,16 +10,18 @@ interface SideMenuPanelProps extends SideNavProps {
 
 const SideMenuPanel: React.FC<SideMenuPanelProps> = ({ expanded, hidePanel }) => {
   const menuRef = React.useRef(null);
+  const current = menuRef?.current;
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (current && !current.contains(event.target)) {
         hidePanel();
       }
     };
 
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, [menuRef, hidePanel]);
+  }, [current, hidePanel]);
 
   return (
     expanded && (
